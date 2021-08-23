@@ -11,17 +11,13 @@ export default StyleSheet.create({
     backgroundColor: '#0A1551',
     paddingHorizontal: 32,
     marginBottom: 30,
-    
-   
-    
   },
   label: {
     fontSize: 14,
     color: 'white',
     textTransform: 'uppercase',
-    
   },
-  transparentButton:{
-    backgroundColor:'transparent'
-  }
+  transparentButton: {
+    backgroundColor: 'transparent',
+  },
 });
