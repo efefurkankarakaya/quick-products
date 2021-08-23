@@ -5,7 +5,7 @@ import styles from './CustomButton.styles';
 
 function CustomButton({label, onPress}) {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity style={[styles.container,styles.transparentButton]} onPress={onPress}>
       <Text style={styles.label}>{label}</Text>
     </TouchableOpacity>
   );

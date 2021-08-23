@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
@@ -9,6 +9,10 @@ import {logIn} from '../../redux/login/loginSlice';
 import {CustomTextInput, CustomButton} from '../../fields';
 
 import styles from './Login.styles.js';
+import Logo from "../../assets/logo.png"
+
+
+
 
 // Validations
 const loginSchema = Yup.object().shape({
@@ -47,12 +51,17 @@ function Login() {
   };
 
   return (
+
+
     <View style={styles.container}>
-      <Text style={styles.header}>Login</Text>
+     <Image source={Logo} style={styles.image} />
+      <Text style={styles.header}>Fast Product</Text>
       <View style={styles.wrapper}>
         <CustomTextInput
+          textAlign='center'
+           color="#0A1551"
           icon="mail"
-          placeholder="Enter your email"
+          placeholder="USERNAME"
           autoCapitalize="none"
           autoCompleteType="email"
           keyboardType="email-address"
@@ -68,8 +77,10 @@ function Login() {
       </View>
       <View style={styles.wrapper}>
         <CustomTextInput
+          color="#0A1551"
+          textAlign='center'
           icon="key"
-          placeholder="Enter your password"
+          placeholder="PASSWORD"
           secureTextEntry
           autoCompleteType="password"
           autoCapitalize="none"
@@ -83,9 +94,15 @@ function Login() {
           ref={password}
         />
       </View>
-      <CustomButton label="Login" onPress={() => handleLogin()} />
+      <CustomButton label="SIGN IN" onPress={() => handleLogin()} />
     </View>
+
+  
+
+   
   );
 }
+
+
 
 export default Login;
