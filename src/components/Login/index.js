@@ -7,8 +7,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {logIn} from '../../redux/login/loginSlice';
 
 import {CustomTextInput, CustomButton} from '../../fields';
-
 import styles from './Login.styles.js';
+import MockData from '../../mock/login_data';
 
 // Validations
 const loginSchema = Yup.object().shape({
@@ -19,7 +19,8 @@ const loginSchema = Yup.object().shape({
     .required('Password is required'),
 });
 
-function Login() {
+function Login({navigation}) {
+  const {eMail: mockEMail, password: mockPassword} = MockData;
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const dispatch = useDispatch();
 
@@ -30,10 +31,13 @@ function Login() {
     useFormik({
       validationSchema: loginSchema,
       initialValues: {email: '', password: ''},
-      onSubmit: values =>
-        alert(
-          `Email: ${values.email}, Password: ${values.password}: Status: ${isLoggedIn}`,
-        ),
+      onSubmit: values => {
+        const isMatched =
+          mockEMail === values.email && mockPassword === values.password;
+        if (dispatch(logIn(isMatched))) {
+          navigation.navigate('Dashboard');
+        }
+      },
     });
 
   // Login Action
@@ -42,7 +46,6 @@ function Login() {
     //   email: email.value,
     //   password: password.value,
     // });
-    dispatch(logIn());
     handleSubmit();
   };
 
