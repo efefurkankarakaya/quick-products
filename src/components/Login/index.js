@@ -34,7 +34,10 @@ function Login({navigation}) {
       onSubmit: values => {
         const isMatched =
           mockEMail === values.email && mockPassword === values.password;
-        if (dispatch(logIn(isMatched))) {
+        const status = 200;
+        const isLoggedIn = isMatched && status ? true : false;
+        if (isLoggedIn) {
+          dispatch(logIn({isLoggedIn}));
           navigation.navigate('Quick Forms', {screen: 'Dashboard'});
         }
       },

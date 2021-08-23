@@ -1,17 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const loginSlice = createSlice({
-  name: 'login', // TODO: rename to user
+  name: 'user', // TODO: rename to user
   initialState: {
     isLoggedIn: false,
   },
   reducers: {
     logIn(state, action) {
-      // TODO: use switch
-      console.log(action);
-      state.isLoggedIn = action.payload;
-      console.log(state);
-      console.log(action.payload);
+      const {isLoggedIn} = action.payload;
+      state.isLoggedIn = isLoggedIn;
     },
   },
 });
