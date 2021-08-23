@@ -35,7 +35,7 @@ function Login({navigation}) {
         const isMatched =
           mockEMail === values.email && mockPassword === values.password;
         if (dispatch(logIn(isMatched))) {
-          navigation.navigate('Dashboard');
+          navigation.navigate('Quick Forms', {screen: 'Dashboard'});
         }
       },
     });
