@@ -6,11 +6,10 @@ import * as Yup from 'yup';
 import {useSelector, useDispatch} from 'react-redux';
 import {logIn} from '../../redux/login/loginSlice';
 
-import {CustomTextInput, CustomButton, CustomText} from '../../fields';
 import {API_KEY} from '../../../.env';
 console.log('API: ' + API_KEY);
 
-import {CustomTextInput, CustomButton} from '../../fields';
+import {CustomTextInput, CustomButton, CustomText} from '../../fields';
 import styles from './Login.styles.js';
 import Logo from '../../assets/logo.png';
 import axios from 'axios';
@@ -149,26 +148,18 @@ function Login({navigation}) {
         onPress={() => handleSubmit()}
       />
 
-      <Text>
-        Don't you have an account?
-        <CustomText
-          dynamicStyle={{
-            backgroundColor: 'transparent',
-            color: '#0099FF',
-            margin: 0,
-            padding: 0,
-          }}
-          dynamicTextStyle={{
-            color: '#0099FF',
-            marginLeft: 20,
-            paddingTop: 35,
-            flex: 1,
-            border: 1,
-          }}
-          label="Sign In"
-          onPress={() => handleSubmit()}
-        />
-      </Text>
+      <View style={styles.register}>
+        <Text>
+          Don't you have an account?
+          <CustomText
+            dynamicTextStyle={{
+              color: '#0099FF',
+            }}
+            label=" Sign In"
+            onPress={() => handleSubmit()}
+          />
+        </Text>
+      </View>
     </View>
   );
 }

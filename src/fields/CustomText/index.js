@@ -5,11 +5,9 @@ import styles from './CustomText.styles';
 
 function CustomText({label, onPress, dynamicStyle, dynamicTextStyle}) {
   return (
-    <View style={[styles.container, dynamicStyle]}>
-      <Text style={[styles.text, dynamicTextStyle]} onPress={onPress}>
-        {label}
-      </Text>
-    </View>
+    <Text style={[styles.text, dynamicTextStyle]} onPress={onPress}>
+      {label}
+    </Text>
   );
 }
 

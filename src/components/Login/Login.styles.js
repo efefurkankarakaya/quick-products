@@ -42,6 +42,18 @@ export default StyleSheet.create({
     paddingLeft: 24,
   },
 
+  forgotPassword: {
+    //
+  },
+
+  register: {
+    margin: 10,
+  },
+
+  registerText: {
+    marginRight: 5,
+  },
+
   blueText: {
     color: '#0099FF',
   },
