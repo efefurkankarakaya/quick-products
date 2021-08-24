@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
@@ -9,8 +9,9 @@ import {logIn} from '../../redux/login/loginSlice';
 import {API_KEY} from '../../../.env';
 console.log('API: ' + API_KEY);
 
-import {CustomTextInput, CustomButton} from '../../fields';
+import {CustomTextInput, CustomButton, CustomText} from '../../fields';
 import styles from './Login.styles.js';
+import Logo from '../../assets/logo.png';
 import axios from 'axios';
 
 // Mock
@@ -92,12 +93,17 @@ function Login({navigation}) {
 
   // JSX
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Login</Text>
+    <View style={styles.logo}>
+      <Image source={Logo} style={styles.image} />
+      <Text style={styles.header}>Quick Products</Text>
       <View style={styles.wrapper}>
         <CustomTextInput
+        
+          alignSelf= "center"
+          textAlign="center"
+          color="#0A1551"
           icon="mail"
-          placeholder="Enter your username"
+          placeholder="USERNAME"
           autoCapitalize="none"
           keyboardAppearance="dark"
           returnKeyType="next"
@@ -111,8 +117,11 @@ function Login({navigation}) {
       </View>
       <View style={styles.wrapper}>
         <CustomTextInput
+          alignSelf= "center"
+          color="#0A1551"
+          textAlign="center"
           icon="key"
-          placeholder="Enter your password"
+          placeholder="PASSWORD"
           secureTextEntry
           autoCompleteType="password"
           autoCapitalize="none"
@@ -126,7 +135,34 @@ function Login({navigation}) {
           ref={password}
         />
       </View>
-      <CustomButton label="Login" onPress={() => handleSubmit()} />
+      <View style={styles.singInButton}>
+        <CustomButton label="SIGN IN" onPress={() => handleSubmit()} />
+      </View>
+
+      <CustomText
+        dynamicStyle={{
+          backgroundColor: 'transparent',
+          color: '#0099FF',
+        }}
+        dynamicTextStyle={{
+          color: '#0099FF',
+        }}
+        label="Forget Password ?"
+        onPress={() => handleSubmit()}
+      />
+
+      <View style={styles.register}>
+        <Text>
+          Don't you have an account?
+          <CustomText
+            dynamicTextStyle={{
+              color: '#0099FF',
+            }}
+            label=" Sign In"
+            onPress={() => handleSubmit()}
+          />
+        </Text>
+      </View>
     </View>
   );
 }
