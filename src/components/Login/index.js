@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import {useSelector, useDispatch} from 'react-redux';
 import {logIn} from '../../redux/login/loginSlice';
 
-import {API_KEY, username, password} from '../../../.env';
+import {API_KEY} from '../../../.env';
 console.log('API: ' + API_KEY);
 
 import {CustomTextInput, CustomButton} from '../../fields';
@@ -25,6 +25,7 @@ const loginSchema = Yup.object().shape({
     .required('Password is required'),
 });
 
+// Login Component
 function Login({navigation}) {
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const dispatch = useDispatch();
@@ -89,6 +90,7 @@ function Login({navigation}) {
       },
     });
 
+  // JSX
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Login</Text>
