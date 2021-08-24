@@ -1,4 +1,4 @@
-import {Text, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -14,15 +14,16 @@ export default StyleSheet.create({
     paddingBottom: 0,
     paddingTop: 0,
     textAlignVertical: 'top',
-
   },
   body: {
     flex: 2,
+  },
+  textInput: {
+    //
   },
   label: {
     fontSize: 2,
     color: 'white',
     textTransform: 'uppercase',
-    
   },
 });

@@ -16,17 +16,17 @@ function CustomRoundedButton({
   ...otherTouchableOpacityProps
 }) {
   dynamicStyle = convertObjectToStyleSheet(dynamicStyle);
-  const containerStyles = combineStyles(styles.container, dynamicStyle);
-
   dynamicIconStyle = convertObjectToStyleSheet(dynamicIconStyle);
-  const iconStyles = combineStyles(styles.icon, dynamicIconStyle);
+
+  const combinedStyles = combineStyles(styles.container, dynamicStyle);
+  const combinedIconStyles = combineStyles(styles.icon, dynamicIconStyle);
 
   return (
     <TouchableOpacity
-      style={containerStyles}
+      style={combinedStyles}
       onPress={onPress}
       {...otherTouchableOpacityProps}>
-      <Image style={iconStyles} source={icon} />
+      <Image style={combinedIconStyles} source={icon} />
     </TouchableOpacity>
   );
 }

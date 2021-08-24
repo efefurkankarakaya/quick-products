@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import {TouchableOpacity, Text, Image, View} from 'react-native';
 
 import styles from './CustomItem.style';
-import {convertObjectToStyleSheet} from '../../utils/styleHelper';
+import {
+  convertObjectToStyleSheet,
+  combineStyles,
+} from '../../utils/styleHelper';
+
 function CustomItem({
   title,
   subText,
@@ -17,23 +21,35 @@ function CustomItem({
   ...otherTouchableOpacityProps
 }) {
   dynamicStyle = convertObjectToStyleSheet(dynamicStyle);
+  dynamicImageStyle = convertObjectToStyleSheet(dynamicImageStyle);
   dynamicTitleStyle = convertObjectToStyleSheet(dynamicTitleStyle);
   dynamicSubTextStyle = convertObjectToStyleSheet(dynamicSubTextStyle);
   dynamicTextContainerStyle = convertObjectToStyleSheet(
     dynamicTextContainerStyle,
   );
-  dynamicImageStyle = convertObjectToStyleSheet(dynamicImageStyle);
+
+  const combinedStyles = combineStyles(styles.container, dynamicStyle);
+  const combinedImageStyles = combineStyles(styles.image, dynamicImageStyle);
+  const combinedTitleStyles = combineStyles(styles.title, dynamicTitleStyle);
+  const combinedSubTextStyles = combineStyles(
+    styles.subText,
+    dynamicSubTextStyle,
+  );
+  const combinedTextContainerStyles = combineStyles(
+    styles.textContainer,
+    dynamicTextContainerStyle,
+  );
 
   return (
     <TouchableOpacity
-      style={[styles.container, dynamicStyle]}
+      style={combinedStyles}
       onPress={onPress}
       {...otherTouchableOpacityProps}>
-      <Image style={[styles.image, dynamicImageStyle]} source={image} />
+      <Image style={combinedImageStyles} source={image} />
       {/* TODO: \IDEA/ what if passed a component (eg: CustomImage) as a prop? */}
-      <View styles={[styles.textContainer, dynamicTextContainerStyle]}>
-        <Text style={[styles.title, dynamicTitleStyle]}>{title}</Text>
-        <Text style={[styles.subText, dynamicSubTextStyle]}>{subText}</Text>
+      <View styles={combinedTextContainerStyles}>
+        <Text style={combinedTitleStyles}>{title}</Text>
+        <Text style={combinedSubTextStyles}>{subText}</Text>
         {/* TODO: \REMEMBER/ Text-ellipsis for content overflow safety */}
       </View>
     </TouchableOpacity>

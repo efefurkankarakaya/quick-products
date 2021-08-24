@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import {View, Text, StyleSheet} from 'react-native';
 
 import styles from './CustomText.styles';
+import {
+  convertObjectToStyleSheet,
+  combineStyles,
+} from '../../utils/styleHelper';
 
 function CustomText({
   label,
@@ -11,12 +15,12 @@ function CustomText({
   dynamicTextStyle,
   ...otherProps
 }) {
-  dynamicTextStyle = StyleSheet.flatten(dynamicTextStyle);
+  dynamicTextStyle = convertObjectToStyleSheet(dynamicTextStyle);
+
+  const combinedTextStyles = combineStyles(styles.text, dynamicTextStyle);
+
   return (
-    <Text
-      style={[styles.text, dynamicTextStyle]}
-      onPress={onPress}
-      {...otherProps}>
+    <Text style={combinedTextStyles} onPress={onPress} {...otherProps}>
       {label}
     </Text>
   );
