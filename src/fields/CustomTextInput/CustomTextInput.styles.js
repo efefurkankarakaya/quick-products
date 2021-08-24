@@ -1,5 +1,4 @@
-
-import { Text, StyleSheet } from "react-native";
+import {Text, StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -12,7 +11,6 @@ export default StyleSheet.create({
     height: 50,
     width: 280,
     marginLeft: 26,
-    
   },
   body: {
     flex: 1,
@@ -21,8 +19,5 @@ export default StyleSheet.create({
     fontSize: 2,
     color: 'white',
     textTransform: 'uppercase',
-    
   },
 });
-
-

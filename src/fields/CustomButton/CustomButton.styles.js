@@ -19,6 +19,4 @@ export default StyleSheet.create({
   transparentButton: {
     backgroundColor: 'transparent',
   },
-
-  
 });

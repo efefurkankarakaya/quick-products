@@ -7,7 +7,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 0,
-  
   },
   header: {
     position: 'relative',
@@ -16,8 +15,8 @@ export default StyleSheet.create({
     fontSize: 20,
     marginBottom: 16,
     height: 112,
-     paddingTop: 80,
-     justifyContent: 'center',
+    paddingTop: 80,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   wrapper: {
@@ -35,7 +34,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  
+
   singInButton: {
     position: 'relative',
     justifyContent: 'center',
@@ -44,10 +43,6 @@ export default StyleSheet.create({
   },
 
   blueText: {
-    color:'#0099FF',
-    
-    
+    color: '#0099FF',
   },
-
 });
-

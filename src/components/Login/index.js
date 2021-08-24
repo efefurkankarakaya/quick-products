@@ -9,10 +9,7 @@ import {logIn} from '../../redux/login/loginSlice';
 import {CustomTextInput, CustomButton, CustomText} from '../../fields';
 
 import styles from './Login.styles.js';
-import Logo from "../../assets/logo.png"
-
-
-
+import Logo from '../../assets/logo.png';
 
 // Validations
 const loginSchema = Yup.object().shape({
@@ -51,20 +48,13 @@ function Login() {
   };
 
   return (
-    
-
-
     <View style={styles.logo}>
-     <Image source={Logo} 
-     style={styles.image}
-     
-     
-      />
+      <Image source={Logo} style={styles.image} />
       <Text style={styles.header}>Fast Product</Text>
       <View style={styles.wrapper}>
         <CustomTextInput
-          textAlign='center'
-           color="#0A1551"
+          textAlign="center"
+          color="#0A1551"
           icon="mail"
           placeholder="USERNAME"
           autoCapitalize="none"
@@ -83,7 +73,7 @@ function Login() {
       <View style={styles.wrapper}>
         <CustomTextInput
           color="#0A1551"
-          textAlign='center'
+          textAlign="center"
           icon="key"
           placeholder="PASSWORD"
           secureTextEntry
@@ -98,16 +88,15 @@ function Login() {
           touched={touched.password}
           ref={password}
         />
-      </View >
+      </View>
       <View style={styles.singInButton}>
-      <CustomButton label="SIGN IN" onPress={() => handleLogin()} />
+        <CustomButton label="SIGN IN" onPress={() => handleLogin()} />
       </View>
 
       <CustomText
         dynamicStyle={{
           backgroundColor: 'transparent',
-          color:'#0099FF'
-          
+          color: '#0099FF',
         }}
         dynamicTextStyle={{
           color: '#0099FF',
@@ -115,41 +104,29 @@ function Login() {
         label="forget your password ?"
         onPress={() => handleLogin()}
       />
-      
-    
 
-
-      <Text>Don't you have an account?<CustomText
-        dynamicStyle={{
-          backgroundColor: 'transparent',
-          color:'#0099FF',
-          margin: 0,
-          padding: 0,
-          
-        }}
-        dynamicTextStyle={{
-          color: '#0099FF',
-          marginLeft: 20,
-          paddingTop: 35,
-          flex:1,
-          border: 1,
-          
-        }}
-        label="Sign In"
-        onPress={() => handleLogin()}
-      /></Text>
-
-      
-
-
+      <Text>
+        Don't you have an account?
+        <CustomText
+          dynamicStyle={{
+            backgroundColor: 'transparent',
+            color: '#0099FF',
+            margin: 0,
+            padding: 0,
+          }}
+          dynamicTextStyle={{
+            color: '#0099FF',
+            marginLeft: 20,
+            paddingTop: 35,
+            flex: 1,
+            border: 1,
+          }}
+          label="Sign In"
+          onPress={() => handleLogin()}
+        />
+      </Text>
     </View>
-
-  
-
-   
   );
 }
-
-
 
 export default Login;

@@ -11,7 +11,6 @@ function CustomTextInput(props, ref) {
           placeholderTextColor="rgba(34, 62, 75, 0.7)"
           {...props}
           ref={ref}
-          
         />
       </View>
     </SafeAreaView>
