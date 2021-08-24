@@ -6,7 +6,7 @@ import styles from './CustomTextInput.styles';
 import {
   convertObjectToStyleSheet,
   combineStyles,
-} from '../../utils/styleHelper';
+} from '../../utils/styleHelpers';
 
 function CustomTextInput(
   {

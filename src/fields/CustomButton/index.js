@@ -6,7 +6,7 @@ import styles from './CustomButton.styles';
 import {
   convertObjectToStyleSheet,
   combineStyles,
-} from '../../utils/styleHelper';
+} from '../../utils/styleHelpers';
 
 function CustomButton({label, onPress, dynamicStyle, dynamicLabelStyle}) {
   dynamicStyle = convertObjectToStyleSheet(dynamicStyle);

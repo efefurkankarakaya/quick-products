@@ -6,7 +6,7 @@ import styles from './CustomItem.style';
 import {
   convertObjectToStyleSheet,
   combineStyles,
-} from '../../utils/styleHelper';
+} from '../../utils/styleHelpers';
 
 function CustomItem({
   title,

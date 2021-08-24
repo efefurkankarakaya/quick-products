@@ -6,7 +6,7 @@ import styles from './CustomRoundedButton.style';
 import {
   convertObjectToStyleSheet,
   combineStyles,
-} from '../../utils/styleHelper';
+} from '../../utils/styleHelpers';
 
 function CustomRoundedButton({
   icon,
