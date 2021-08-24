@@ -98,9 +98,6 @@ function Login({navigation}) {
       <Text style={styles.header}>Quick Products</Text>
       <View style={styles.wrapper}>
         <CustomTextInput
-        
-          alignSelf= "center"
-          textAlign="center"
           color="#0A1551"
           icon="mail"
           placeholder="USERNAME"
@@ -117,9 +114,7 @@ function Login({navigation}) {
       </View>
       <View style={styles.wrapper}>
         <CustomTextInput
-          alignSelf= "center"
           color="#0A1551"
-          textAlign="center"
           icon="key"
           placeholder="PASSWORD"
           secureTextEntry

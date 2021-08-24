@@ -8,47 +8,26 @@ import {
   combineStyles,
 } from '../../utils/styleHelpers';
 
-function CustomTextInput(
-  {
-    dynamicStyle,
-    dynamicBodyStyle,
-    dynamicTextInputStyle,
-    ...otherTextInputProps
-  },
-  ref,
-) {
-  dynamicStyle = convertObjectToStyleSheet(dynamicStyle);
-  dynamicBodyStyle = convertObjectToStyleSheet(dynamicBodyStyle);
+function CustomTextInput({dynamicTextInputStyle, ...otherTextInputProps}, ref) {
   dynamicTextInputStyle = convertObjectToStyleSheet(dynamicTextInputStyle);
 
-  const combinedStyles = combineStyles(styles.container, dynamicStyle);
-  const combinedBodyStyles = combineStyles(styles.body, dynamicBodyStyle);
   const combinedTextInputStyles = combineStyles(
     styles.textInput,
     dynamicTextInputStyle,
   );
 
   return (
-    // TODO: Remove SafeAreaView
-    // TODO: Remove View if possible
-    // TODO: Remove their propTypes
-    <SafeAreaView style={combinedStyles}>
-      <View style={combinedBodyStyles}>
-        <TextInput
-          style={combinedTextInputStyles}
-          placeholderTextColor="rgba(34, 62, 75, 0.7)"
-          {...otherTextInputProps}
-          ref={ref}
-        />
-      </View>
-    </SafeAreaView>
+    <TextInput
+      style={combinedTextInputStyles}
+      placeholderTextColor="rgba(34, 62, 75, 0.7)"
+      {...otherTextInputProps}
+      ref={ref}
+    />
   );
 }
 
 export default forwardRef(CustomTextInput);
 
 CustomTextInput.propTypes = {
-  dynamicStyle: PropTypes.object,
-  dynamicBodyStyle: PropTypes.object,
   dynamicTextInputStyle: PropTypes.object,
 };

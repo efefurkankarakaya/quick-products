@@ -21,13 +21,12 @@ export default StyleSheet.create({
     alignContent: 'center',
   },
   wrapper: {
-    paddingHorizontal: 34,
     marginBottom: 30,
-    
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
     alignContent: 'center',
+    alignSelf: 'center',
     paddingLeft: 3,
   },
 
