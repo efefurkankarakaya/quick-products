@@ -5,6 +5,8 @@ import {TouchableOpacity, Text, Image, View} from 'react-native';
 import styles from './CustomItem.style';
 import {convertObjectToStyleSheet} from '../../utils/styleHelper';
 
+import QuestionMark from '../../assets/question.jpg';
+
 function CustomItem({
   title,
   subText,
@@ -28,7 +30,7 @@ function CustomItem({
     <TouchableOpacity
       style={[styles.container, dynamicStyle]}
       onPress={onPress}>
-      {/* <Image style={[styles.image, dynamicImageStyle]} source={{uri: image}} /> */}
+      <Image style={[styles.image, dynamicImageStyle]} source={image} />
       {/* TODO: \IDEA/ what if passed a component (eg: CustomImage) as a prop? */}
       <View styles={[styles.textContainer, dynamicTextContainerStyle]}>
         <Text style={[styles.title, dynamicTitleStyle]}>{title}</Text>
@@ -41,13 +43,10 @@ function CustomItem({
 
 export default CustomItem;
 
-CustomItem.defaultProps = {
-  image: '', // TODO: add an default image
-};
-
 CustomItem.propTypes = {
   title: PropTypes.string.isRequired,
   subText: PropTypes.string,
+  image: PropTypes.node,
   onPress: PropTypes.func,
   dynamicStyle: PropTypes.object,
   dynamicTitleStyle: PropTypes.object,
