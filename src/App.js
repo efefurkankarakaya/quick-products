@@ -1,16 +1,68 @@
 import React from 'react';
 import {SafeAreaView, View} from 'react-native';
-import Login from './components';
-import styles from './App.style';
+
 import {store} from './redux/store';
 import {Provider} from 'react-redux';
+
+import {NavigationContainer, StackActions} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import {Login, Register, Dashboard} from './components';
+import styles from './App.style';
+
+const Stack = createNativeStackNavigator();
+
+const FLSSHeaderOptions = {
+  headerTitleAlign: 'center',
+  title: 'Quick Products',
+};
+
+// SS: Stack Screens
+const FirstLoginSS = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={FLSSHeaderOptions}
+      />
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={FLSSHeaderOptions}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const QuickFormsSS = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Dashboard" component={Dashboard} />
+    </Stack.Navigator>
+  );
+};
+
+/* TODO: 
+    Dynamic initial routing (with using LowDB or AsyncLocalStorage)
+    if (user.onceLoggedIn) {
+      return <Stack.Navigator initialRouteName="Dashboard" />;
+    }
+*/
 
 function App() {
   return (
     <Provider store={store}>
-      <SafeAreaView style={styles.container}>
-        <Login />
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen name="First Login" component={FirstLoginSS} />
+          <Stack.Screen name="Quick Forms" component={QuickFormsSS} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 }
