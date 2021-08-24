@@ -43,8 +43,7 @@ const QuickFormsSS = () => {
   );
 };
 
-/* TODO: 
-    Dynamic initial routing (with using LowDB or AsyncLocalStorage)
+/* TODO: Dynamic initial routing (with using LowDB or AsyncLocalStorage)
     if (user.onceLoggedIn) {
       return <Stack.Navigator initialRouteName="Dashboard" />;
     }
