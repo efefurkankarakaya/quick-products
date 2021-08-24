@@ -4,6 +4,10 @@ import {SafeAreaView, TextInput, View} from 'react-native';
 import styles from './CustomTextInput.styles';
 
 function CustomTextInput(props, ref) {
+  // TODO: add dynamic styles
+  // TODO: add destructuring
+  // TODO: add otherTextInputProps
+  // TODO: move codes to index.js
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.body}>

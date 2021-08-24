@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 
 import styles from './CustomButton.styles';
@@ -16,3 +17,10 @@ function CustomButton({label, onPress, dynamicStyle, dynamicTextStyle}) {
 }
 
 export default CustomButton;
+
+CustomButton.propTypes = {
+  label: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
+  dynamicStyle: PropTypes.object,
+  dynamicTextStyle: PropTypes.object,
+};
