@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import {useSelector, useDispatch} from 'react-redux';
 import {logIn} from '../../redux/login/loginSlice';
 
-import {CustomTextInput, CustomButton} from '../../fields';
+import {CustomTextInput, CustomButton, CustomText} from '../../fields';
 
 import styles from './Login.styles.js';
 import Logo from "../../assets/logo.png"
@@ -51,10 +51,15 @@ function Login() {
   };
 
   return (
+    
 
 
-    <View style={styles.container}>
-     <Image source={Logo} style={styles.image} />
+    <View style={styles.logo}>
+     <Image source={Logo} 
+     style={styles.image}
+     
+     
+      />
       <Text style={styles.header}>Fast Product</Text>
       <View style={styles.wrapper}>
         <CustomTextInput
@@ -93,8 +98,50 @@ function Login() {
           touched={touched.password}
           ref={password}
         />
-      </View>
+      </View >
+      <View style={styles.singInButton}>
       <CustomButton label="SIGN IN" onPress={() => handleLogin()} />
+      </View>
+
+      <CustomText
+        dynamicStyle={{
+          backgroundColor: 'transparent',
+          color:'#0099FF'
+          
+        }}
+        dynamicTextStyle={{
+          color: '#0099FF',
+        }}
+        label="forget your password ?"
+        onPress={() => handleLogin()}
+      />
+      
+    
+
+
+      <Text>Don't you have an account?<CustomText
+        dynamicStyle={{
+          backgroundColor: 'transparent',
+          color:'#0099FF',
+          margin: 0,
+          padding: 0,
+          
+        }}
+        dynamicTextStyle={{
+          color: '#0099FF',
+          marginLeft: 20,
+          paddingTop: 35,
+          flex:1,
+          border: 1,
+          
+        }}
+        label="Sign In"
+        onPress={() => handleLogin()}
+      /></Text>
+
+      
+
+
     </View>
 
   

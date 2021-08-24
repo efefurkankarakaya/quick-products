@@ -9,7 +9,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#0A1551',
-    paddingHorizontal: 32,
     marginBottom: 30,
   },
   label: {
@@ -20,4 +19,6 @@ export default StyleSheet.create({
   transparentButton: {
     backgroundColor: 'transparent',
   },
+
+  
 });
