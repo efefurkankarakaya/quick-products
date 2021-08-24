@@ -11,13 +11,18 @@ export default StyleSheet.create({
     height: 50,
     width: 280,
     marginLeft: 26,
+    paddingBottom: 0,
+    paddingTop: 0,
+    textAlignVertical: 'top',
+
   },
   body: {
-    flex: 1,
+    flex: 2,
   },
   label: {
     fontSize: 2,
     color: 'white',
     textTransform: 'uppercase',
+    
   },
 });

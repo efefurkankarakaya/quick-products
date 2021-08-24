@@ -95,9 +95,11 @@ function Login({navigation}) {
   return (
     <View style={styles.logo}>
       <Image source={Logo} style={styles.image} />
-      <Text style={styles.header}>Fast Product</Text>
+      <Text style={styles.header}>Quick Products</Text>
       <View style={styles.wrapper}>
         <CustomTextInput
+        
+          alignSelf= "center"
           textAlign="center"
           color="#0A1551"
           icon="mail"
@@ -115,6 +117,7 @@ function Login({navigation}) {
       </View>
       <View style={styles.wrapper}>
         <CustomTextInput
+          alignSelf= "center"
           color="#0A1551"
           textAlign="center"
           icon="key"
@@ -144,7 +147,7 @@ function Login({navigation}) {
         dynamicTextStyle={{
           color: '#0099FF',
         }}
-        label="forget your password ?"
+        label="Forget Password ?"
         onPress={() => handleSubmit()}
       />
 

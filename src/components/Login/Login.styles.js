@@ -11,35 +11,42 @@ export default StyleSheet.create({
   header: {
     position: 'relative',
     color: '#0A1551',
-    bottom: 40,
-    fontSize: 20,
-    marginBottom: 16,
-    height: 112,
+    bottom: 30,
+    fontSize: 25,
+    marginBottom: 15,
     paddingTop: 80,
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
+    alignContent: 'center',
   },
   wrapper: {
-    paddingHorizontal: 30,
+    paddingHorizontal: 34,
     marginBottom: 30,
-    width: '100%',
+    
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
+    alignContent: 'center',
+    paddingLeft: 3,
   },
 
   logo: {
-    position: 'absolute',
+    position: 'relative',
     paddingBottom: 70,
     paddingTop: 90,
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
+    alignContent: 'center',
   },
 
   singInButton: {
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 24,
+    textAlign: 'center',
+    alignContent: 'center',
   },
 
   forgotPassword: {
@@ -47,11 +54,11 @@ export default StyleSheet.create({
   },
 
   register: {
-    margin: 10,
+    margin: 20,
   },
 
   registerText: {
-    marginRight: 5,
+    marginRight: 15,
   },
 
   blueText: {
