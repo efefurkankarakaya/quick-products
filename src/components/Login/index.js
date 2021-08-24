@@ -7,20 +7,28 @@ import {useSelector, useDispatch} from 'react-redux';
 import {logIn} from '../../redux/login/loginSlice';
 
 import {CustomTextInput, CustomButton, CustomText} from '../../fields';
+import {API_KEY} from '../../../.env';
+console.log('API: ' + API_KEY);
 
+import {CustomTextInput, CustomButton} from '../../fields';
 import styles from './Login.styles.js';
 import Logo from '../../assets/logo.png';
+import axios from 'axios';
+
+// Mock
+import LoginResult from '../../mock/login_data';
 
 // Validations
 const loginSchema = Yup.object().shape({
-  email: Yup.string().email().required('Email is required'),
+  username: Yup.string().required('Username is required'),
   password: Yup.string()
     .min(2, 'Too short.')
     .max(32, 'Too long.')
     .required('Password is required'),
 });
 
-function Login() {
+// Login Component
+function Login({navigation}) {
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const dispatch = useDispatch();
 
@@ -30,23 +38,61 @@ function Login() {
   const {handleChange, handleSubmit, handleBlur, values, errors, touched} =
     useFormik({
       validationSchema: loginSchema,
-      initialValues: {email: '', password: ''},
-      onSubmit: values =>
-        alert(
-          `Email: ${values.email}, Password: ${values.password}: Status: ${isLoggedIn}`,
-        ),
+      initialValues: {username: '', password: ''},
+      onSubmit: values => {
+        console.log(values);
+
+        // Handle Login with Mock Data
+        (() => {
+          const data = LoginResult;
+          const {message, responseCode, content} = data;
+          const {userInfo} = content;
+          const {appKey} = userInfo; // TODO: Add to Redux Store
+          // TODO: Find Answers for The Questions Below
+          //  * Are appKeys constant or changing every single login?
+          //  * Are appKeys using as a header?
+          console.log(message, responseCode, appKey);
+          if (message == 'success' && responseCode == 200) {
+            dispatch(logIn({isLoggedIn}));
+            navigation.navigate('Quick Forms', {screen: 'Dashboard'});
+          }
+        })();
+
+        // Handle Login With Real Data
+        /*
+        axios
+          .post(`https://api.jotform.com/user/login`, {
+            // .post(`https://m-baydogan.jotform.dev/intern-api/user/login`, {
+            username: values.username.trim(),
+            password: values.password.trim(),
+            appName: 'Quick Forms',
+            access: 'full',
+          })
+          .then(({data}) => {
+            console.log(data);
+            // const {message, responseCode} = data;
+            // if (message == 'success' && responseCode == 200) {
+            //   dispatch(logIn({isLoggedIn}));
+            //   navigation.navigate('Quick Forms', {screen: 'Dashboard'});
+            // }
+          })
+          .catch(err => {
+            console.error(err);
+            console.log(err);
+            // console.log(err.message);
+            // console.log(err.request);
+            console.log('============ ERROR DATA ============');
+            console.log(err.response.data);
+            console.log('============ ERROR STATUS ============');
+            console.log(err.response.status);
+            console.log('============ ERROR HEADERS ============');
+            console.log(err.response.headers);
+          });
+          */
+      },
     });
 
-  // Login Action
-  const handleLogin = () => {
-    // const {email, password} = loginSchema.clean({
-    //   email: email.value,
-    //   password: password.value,
-    // });
-    dispatch(logIn());
-    handleSubmit();
-  };
-
+  // JSX
   return (
     <View style={styles.logo}>
       <Image source={Logo} style={styles.image} />
@@ -58,16 +104,14 @@ function Login() {
           icon="mail"
           placeholder="USERNAME"
           autoCapitalize="none"
-          autoCompleteType="email"
-          keyboardType="email-address"
           keyboardAppearance="dark"
           returnKeyType="next"
           returnKeyLabel="next"
-          onChangeText={handleChange('email')}
+          onChangeText={handleChange('username')}
           onSubmitEditing={() => password.current?.focus()}
-          onBlur={handleBlur('email')}
-          error={errors.email}
-          touched={touched.email}
+          onBlur={handleBlur('username')}
+          error={errors.username}
+          touched={touched.username}
         />
       </View>
       <View style={styles.wrapper}>
@@ -90,7 +134,7 @@ function Login() {
         />
       </View>
       <View style={styles.singInButton}>
-        <CustomButton label="SIGN IN" onPress={() => handleLogin()} />
+        <CustomButton label="SIGN IN" onPress={() => handleSubmit()} />
       </View>
 
       <CustomText
@@ -102,7 +146,7 @@ function Login() {
           color: '#0099FF',
         }}
         label="forget your password ?"
-        onPress={() => handleLogin()}
+        onPress={() => handleSubmit()}
       />
 
       <Text>
@@ -122,7 +166,7 @@ function Login() {
             border: 1,
           }}
           label="Sign In"
-          onPress={() => handleLogin()}
+          onPress={() => handleSubmit()}
         />
       </Text>
     </View>
