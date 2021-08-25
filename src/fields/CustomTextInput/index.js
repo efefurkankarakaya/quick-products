@@ -1,6 +1,6 @@
 import React, {forwardRef} from 'react';
 import PropTypes from 'prop-types';
-import {SafeAreaView, TextInput, View} from 'react-native';
+import {TextInput} from 'react-native';
 
 import styles from './CustomTextInput.styles';
 import {

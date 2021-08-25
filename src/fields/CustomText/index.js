@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, StyleSheet} from 'react-native';
+import {Text} from 'react-native';
 
 import styles from './CustomText.styles';
 import {
@@ -8,13 +8,7 @@ import {
   combineStyles,
 } from '../../utils/styleHelpers';
 
-function CustomText({
-  label,
-  onPress,
-  dynamicStyle,
-  dynamicTextStyle,
-  ...otherProps
-}) {
+function CustomText({label, onPress, dynamicTextStyle, ...otherProps}) {
   dynamicTextStyle = convertObjectToStyleSheet(dynamicTextStyle);
 
   const combinedTextStyles = combineStyles(styles.text, dynamicTextStyle);
@@ -31,6 +25,5 @@ export default CustomText;
 CustomText.propTypes = {
   label: PropTypes.string.isRequired,
   onPress: PropTypes.func,
-  dynamicStyle: PropTypes.object,
   dynamicTextStyle: PropTypes.object,
 };
