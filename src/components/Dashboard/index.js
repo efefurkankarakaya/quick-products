@@ -8,7 +8,7 @@ import LocalFormData from '../../mock/form_data';
 import Plus from '../../assets/plus.png';
 import QuestionMark from '../../assets/question.jpg';
 
-function Dashboard() {
+function Dashboard({navigation}) {
   const {content} = LocalFormData;
 
   // Create Form Item onPress Handler
@@ -20,6 +20,7 @@ function Dashboard() {
   const onListItemPress = data => {
     const {id} = data;
     console.log(id);
+    navigation.navigate('Quick Forms', {screen: 'Form Detail'});
   };
 
   // FlatList Functions
