@@ -7,7 +7,14 @@ import {Provider} from 'react-redux';
 import {NavigationContainer, StackActions} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {Login, Register, Dashboard} from './components';
+import {
+  Login,
+  Register,
+  ForgotPassword,
+  Dashboard,
+  FormDetail,
+  ProductDetail,
+} from './components';
 import styles from './App.style';
 
 const Stack = createNativeStackNavigator();
@@ -17,8 +24,7 @@ const FLSSHeaderOptions = {
   title: 'Quick Products',
 };
 
-// SS: Stack Screens
-const FirstLoginSS = () => {
+const FirstLoginStackScreens = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -35,10 +41,14 @@ const FirstLoginSS = () => {
   );
 };
 
-const QuickFormsSS = () => {
+const QFSSHeaderOptions = {};
+
+const QuickFormsStackScreens = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="Form Detail" component={FormDetail} />
+      <Stack.Screen name="Product Detail" component={ProductDetail} />
     </Stack.Navigator>
   );
 };
@@ -58,8 +68,8 @@ function App() {
           screenOptions={{
             headerShown: false,
           }}>
-          <Stack.Screen name="First Login" component={FirstLoginSS} />
-          <Stack.Screen name="Quick Forms" component={QuickFormsSS} />
+          <Stack.Screen name="First Login" component={FirstLoginStackScreens} />
+          <Stack.Screen name="Quick Forms" component={QuickFormsStackScreens} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

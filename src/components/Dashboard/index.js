@@ -8,7 +8,7 @@ import LocalFormData from '../../mock/form_data';
 import Plus from '../../assets/plus.png';
 import QuestionMark from '../../assets/question.jpg';
 
-function Dashboard() {
+function Dashboard({navigation}) {
   const {content} = LocalFormData;
 
   // Create Form Item onPress Handler
@@ -17,17 +17,22 @@ function Dashboard() {
   };
 
   // Form Item onPress Handler
-  const onListItemPress = data => {
-    const {id} = data;
-    console.log(id);
+  const onFormPress = (formId, formTitle) => {
+    console.log(formId, formTitle);
+    navigation.navigate('Quick Forms', {
+      screen: 'Form Detail',
+      params: {
+        formTitle,
+      },
+    });
   };
 
   // FlatList Functions
-  const renderForm = ({item}) => (
+  const renderForm = ({item: form}) => (
     <CustomItem
-      title={item.title}
-      subText={'Last change: ' + item.updated_at}
-      onPress={() => onListItemPress(item)}
+      title={form.title}
+      subText={'Last change: ' + form.updated_at}
+      onPress={() => onFormPress(form.id, form.title)}
       image={QuestionMark}
     />
   );
