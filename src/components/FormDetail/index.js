@@ -10,18 +10,19 @@ import {Question, Plus} from '../../assets';
 import FormDetailsData from '../../mock/product_data';
 
 function FormDetail({navigation, route}) {
-  console.log(route);
+  // Set header title as shown form title
   navigation.setOptions({
     title: route.params?.formTitle,
   });
-  const {content} = FormDetailsData;
-  // Create Form Item onPress Handler
 
+  const {content} = FormDetailsData;
+
+  // Create Product onPress Handler
   const onCreateProductPress = () => {
     console.log('Create product');
   };
 
-  // Form Item onPress Handler
+  // Product onPress Handler
   const onProductPress = productId => {
     console.log(productId);
   };
