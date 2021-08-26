@@ -6,9 +6,6 @@ import * as Yup from 'yup';
 import {useSelector, useDispatch} from 'react-redux';
 import {logIn} from '../../redux/login/loginSlice';
 
-import {API_KEY} from '../../../.env';
-console.log('API: ' + API_KEY);
-
 import {CustomTextInput, CustomButton, CustomText} from '../../fields';
 import styles from './Login.styles.js';
 import Logo from '../../assets/logo3.png';
@@ -32,6 +29,9 @@ function Login({navigation}) {
   const dispatch = useDispatch();
 
   const password = useRef(null);
+
+  const navigateToRegister = () =>
+    navigation.navigate('First Login', {screen: 'Register'});
 
   // Formik setup
   const {handleChange, handleSubmit, handleBlur, values, errors, touched} =
@@ -154,7 +154,7 @@ function Login({navigation}) {
               color: '#0099FF',
             }}
             label=" Sign Up"
-            onPress={() => handleSubmit()}
+            onPress={navigateToRegister}
           />
         </Text>
       </View>
