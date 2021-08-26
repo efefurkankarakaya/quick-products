@@ -40,7 +40,7 @@ function FormDetail({navigation, route}) {
       image={Question}
     />
   );
-  const extractKey = (item, _) => item.id;
+  const extractKey = (item, _) => item.pid;
 
   return (
     // TODO: Add editable title
