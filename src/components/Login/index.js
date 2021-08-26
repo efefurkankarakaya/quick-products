@@ -32,6 +32,8 @@ function Login({navigation}) {
 
   const navigateToRegister = () =>
     navigation.navigate('First Login', {screen: 'Register'});
+  const navigateToForgotPassword = () =>
+    navigation.navigate('First Login', {screen: 'Forgot Password'});
 
   // Formik setup
   const {handleChange, handleSubmit, handleBlur, values, errors, touched} =
@@ -143,7 +145,7 @@ function Login({navigation}) {
           color: '#0099FF',
         }}
         label="Forget Password ?"
-        onPress={() => handleSubmit()}
+        onPress={navigateToForgotPassword}
       />
 
       <View style={styles.register}>

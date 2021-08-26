@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 import {NavigationContainer, StackActions} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {Login, Register, Dashboard} from './components';
+import {Login, Register, Dashboard, ForgotPassword} from './components';
 import styles from './App.style';
 
 const Stack = createNativeStackNavigator();
@@ -20,16 +20,15 @@ const FLSSHeaderOptions = {
 const FLSSHeaderOptionsForDashboard = {
   headerTitleAlign: 'center',
   title: 'My Forms',
-  
-  
+
   headerStyle: {
-  backgroundColor: '#0A1551',
+    backgroundColor: '#0A1551',
   },
-  
+
   headerTintColor: '#fff',
-  
+
   headerTitleStyle: {
-  fontWeight: 'bold',
+    fontWeight: 'bold',
   },
 };
 
@@ -47,6 +46,11 @@ const FirstLoginSS = () => {
         component={Register}
         options={FLSSHeaderOptions}
       />
+      <Stack.Screen
+        name="Forgot Password"
+        component={ForgotPassword}
+        options={FLSSHeaderOptions}
+      />
     </Stack.Navigator>
   );
 };
@@ -54,8 +58,10 @@ const FirstLoginSS = () => {
 const QuickFormsSS = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="My Forms" component={Dashboard} 
-      options={FLSSHeaderOptionsForDashboard}
+      <Stack.Screen
+        name="My Forms"
+        component={Dashboard}
+        options={FLSSHeaderOptionsForDashboard}
       />
     </Stack.Navigator>
   );
