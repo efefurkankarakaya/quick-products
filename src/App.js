@@ -23,8 +23,7 @@ const FLSSHeaderOptions = {
   title: 'Quick Products',
 };
 
-// SS: Stack Screens
-const FirstLoginSS = () => {
+const FirstLoginStackScreens = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -41,7 +40,9 @@ const FirstLoginSS = () => {
   );
 };
 
-const QuickFormsSS = () => {
+const QFSSHeaderOptions = {};
+
+const QuickFormsStackScreens = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Dashboard" component={Dashboard} />
@@ -65,8 +66,8 @@ function App() {
           screenOptions={{
             headerShown: false,
           }}>
-          <Stack.Screen name="First Login" component={FirstLoginSS} />
-          <Stack.Screen name="Quick Forms" component={QuickFormsSS} />
+          <Stack.Screen name="First Login" component={FirstLoginStackScreens} />
+          <Stack.Screen name="Quick Forms" component={QuickFormsStackScreens} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

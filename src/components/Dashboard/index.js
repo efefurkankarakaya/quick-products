@@ -17,18 +17,22 @@ function Dashboard({navigation}) {
   };
 
   // Form Item onPress Handler
-  const onListItemPress = data => {
-    const {id} = data;
-    console.log(id);
-    navigation.navigate('Quick Forms', {screen: 'Form Detail'});
+  const onFormPress = (formId, formTitle) => {
+    console.log(formId, formTitle);
+    navigation.navigate('Quick Forms', {
+      screen: 'Form Detail',
+      params: {
+        formTitle,
+      },
+    });
   };
 
   // FlatList Functions
-  const renderForm = ({item}) => (
+  const renderForm = ({item: form}) => (
     <CustomItem
-      title={item.title}
-      subText={'Last change: ' + item.updated_at}
-      onPress={() => onListItemPress(item)}
+      title={form.title}
+      subText={'Last change: ' + form.updated_at}
+      onPress={() => onFormPress(form.id, form.title)}
       image={QuestionMark}
     />
   );
