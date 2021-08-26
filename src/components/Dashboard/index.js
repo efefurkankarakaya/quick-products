@@ -5,8 +5,9 @@ import styles from './Dashboard.style';
 import {CustomItem, CustomRoundedButton} from '../../fields';
 
 import LocalFormData from '../../mock/form_data';
-import Plus from '../../assets/plus.png';
-import QuestionMark from '../../assets/question.jpg';
+import Add from '../../assets/add.png';
+import Doc from '../../assets/doc.png';
+
 
 function Dashboard() {
   const {content} = LocalFormData;
@@ -28,7 +29,7 @@ function Dashboard() {
       title={item.title}
       subText={'Last change: ' + item.updated_at}
       onPress={() => onListItemPress(item)}
-      image={QuestionMark}
+      image={Doc}
     />
   );
   const extractKey = (item, _) => item.id;
@@ -41,7 +42,7 @@ function Dashboard() {
         data={content}
         renderItem={renderForm}
       />
-      <CustomRoundedButton icon={Plus} onPress={onCreateFormPress} />
+      <CustomRoundedButton icon={Add} onPress={onCreateFormPress} />
     </View>
   );
 }

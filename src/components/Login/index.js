@@ -11,7 +11,7 @@ console.log('API: ' + API_KEY);
 
 import {CustomTextInput, CustomButton, CustomText} from '../../fields';
 import styles from './Login.styles.js';
-import Logo from '../../assets/logo.png';
+import Logo from '../../assets/logo3.png';
 import axios from 'axios';
 
 // Mock
@@ -153,7 +153,7 @@ function Login({navigation}) {
             dynamicTextStyle={{
               color: '#0099FF',
             }}
-            label=" Sign In"
+            label=" Sign Up"
             onPress={() => handleSubmit()}
           />
         </Text>

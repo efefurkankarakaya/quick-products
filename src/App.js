@@ -17,6 +17,22 @@ const FLSSHeaderOptions = {
   title: 'Quick Products',
 };
 
+const FLSSHeaderOptionsForDashboard = {
+  headerTitleAlign: 'center',
+  title: 'My Forms',
+  
+  
+  headerStyle: {
+  backgroundColor: '#0A1551',
+  },
+  
+  headerTintColor: '#fff',
+  
+  headerTitleStyle: {
+  fontWeight: 'bold',
+  },
+};
+
 // SS: Stack Screens
 const FirstLoginSS = () => {
   return (
@@ -38,7 +54,9 @@ const FirstLoginSS = () => {
 const QuickFormsSS = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="My Forms" component={Dashboard} 
+      options={FLSSHeaderOptionsForDashboard}
+      />
     </Stack.Navigator>
   );
 };

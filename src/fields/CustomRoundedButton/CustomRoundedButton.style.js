@@ -5,8 +5,8 @@ export default StyleSheet.create({
     alignItems: 'flex-end',
   },
   icon: {
-    width: 45,
-    height: 45,
+    width: 80,
+    height: 80,
     borderRadius: 100,
     backgroundColor: '#fff',
   },
