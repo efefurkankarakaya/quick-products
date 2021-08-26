@@ -29,6 +29,7 @@ function FormDetail({navigation, route}) {
   // Product onPress Handler
   const onProductPress = productId => {
     console.log(productId);
+    navigation.navigate('Quick Forms', {screen: 'Product Detail', params: {}});
   };
 
   // FlatList Functions

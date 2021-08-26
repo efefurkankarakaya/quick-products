@@ -13,6 +13,7 @@ import {
   ForgotPassword,
   Dashboard,
   FormDetail,
+  ProductDetail,
 } from './components';
 import styles from './App.style';
 
@@ -47,6 +48,7 @@ const QuickFormsStackScreens = () => {
     <Stack.Navigator>
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="Form Detail" component={FormDetail} />
+      <Stack.Screen name="Product Detail" component={ProductDetail} />
     </Stack.Navigator>
   );
 };

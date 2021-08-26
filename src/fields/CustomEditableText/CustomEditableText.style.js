@@ -6,6 +6,8 @@ export default StyleSheet.create({
   },
   readOnly: {
     backgroundColor: '#f5f5f5',
+    borderBottomColor: 'transparent',
+    borderBottomWidth: 1,
     flex: 1,
   },
   writeOnly: {
@@ -18,10 +20,10 @@ export default StyleSheet.create({
   },
   tick: {
     backgroundColor: 'lightblue',
-    fontSize: 40,
+    fontSize: 35,
   },
   cross: {
     backgroundColor: 'red',
-    fontSize: 40,
+    fontSize: 35,
   },
 });
