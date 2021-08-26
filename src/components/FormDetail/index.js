@@ -1,7 +1,11 @@
 import React from 'react';
 import {View, FlatList} from 'react-native';
 
-import {CustomItem, CustomRoundedButton} from '../../fields';
+import {
+  CustomItem,
+  CustomRoundedButton,
+  CustomEditableText,
+} from '../../fields';
 
 import styles from './FormDetail.style';
 import {Question, Plus} from '../../assets';
@@ -39,7 +43,14 @@ function FormDetail({navigation, route}) {
   const extractKey = (item, _) => item.id;
 
   return (
+    // TODO: Add editable title
+    // TODO: Add editable description
+    // TODO: Navigate product details page
+    // TODO: Add product creation
+    // TODO: Add product deletion
     <View style={styles.container}>
+      <CustomEditableText value="Freelance" />
+      <CustomEditableText value="Lorem ipsum dolor sit amet." />
       <FlatList
         keyExtractor={extractKey}
         data={content}
