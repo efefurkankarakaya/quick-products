@@ -24,12 +24,21 @@ function FormDetail({navigation, route}) {
   // Create Product onPress Handler
   const onCreateProductPress = () => {
     console.log('Create product');
+    // TODO: Create Product Function
   };
 
   // Product onPress Handler
-  const onProductPress = productId => {
-    console.log(productId);
-    navigation.navigate('Quick Forms', {screen: 'Product Detail', params: {}});
+  const onProductPress = product => {
+    console.log(product.pid);
+    navigation.navigate('Quick Forms', {
+      screen: 'Product Detail',
+      params: {
+        productName: product.name,
+        productDescription: product.description,
+        productPrice: product.price,
+        productImages: product.images,
+      },
+    });
   };
 
   // FlatList Functions
@@ -37,7 +46,7 @@ function FormDetail({navigation, route}) {
     <CustomItem
       title={product.name}
       subText={product.description}
-      onPress={() => onProductPress(product.pid)}
+      onPress={() => onProductPress(product)}
       image={Question}
     />
   );
