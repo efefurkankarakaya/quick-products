@@ -1,8 +1,5 @@
 import axios from 'axios';
-import {
-  convertJSONToQueryString,
-  convertJSONToString,
-} from '../../utils/stringHelpers';
+import {convertJSONToQueryString} from '../../utils/objectHelpers';
 
 // Accept: Query String
 const endpoint = 'https://m-baydogan.jotform.dev/intern-api/user/login';
@@ -11,7 +8,7 @@ const endpoint = 'https://m-baydogan.jotform.dev/intern-api/user/login';
  * @param {Object} data Data to be sent to the server.
  */
 async function sendLoginRequest(loginData) {
-  console.log('Login Data: ' + convertJSONToString(loginData)); // TODO: Remove this line.
+  console.log('Login Data: ' + JSON.stringify(loginData)); // TODO: Remove this line.
   // The loginData to be posted as query string
   loginData = convertJSONToQueryString(loginData);
 

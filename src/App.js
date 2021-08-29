@@ -1,11 +1,12 @@
 import React from 'react';
-import {SafeAreaView, View} from 'react-native';
 
 import {store} from './redux/store';
 import {Provider} from 'react-redux';
 
-import {NavigationContainer, StackActions} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import {setItem, getItem, removeItem} from './utils/databaseHelpers';
 
 import {
   Login,
@@ -58,6 +59,21 @@ const QuickFormsStackScreens = () => {
       return <Stack.Navigator initialRouteName="Dashboard" />;
     }
 */
+
+setItem('user', {
+  onceLoggedIn: false,
+  appKey: '12kd12kd11ks11k',
+}).then(() => {
+  console.log('User set.');
+});
+
+getItem('user').then(user => {
+  console.log(user);
+});
+
+removeItem('user').then(user => {
+  console.log('User removed.');
+});
 
 function App() {
   return (
