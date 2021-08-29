@@ -5,7 +5,8 @@ import {convertJSONToQueryString} from '../../utils/objectHelpers';
 const endpoint = 'https://m-baydogan.jotform.dev/intern-api/user/login';
 
 /**
- * @param {Object} data Data to be sent to the server.
+ * @param {object} loginData - Data to be sent to the server.
+ * @returns {object} - Returns the user's login status and appKey.
  */
 async function sendLoginRequest(loginData) {
   console.log('Login Data: ' + JSON.stringify(loginData)); // TODO: Remove this line.
