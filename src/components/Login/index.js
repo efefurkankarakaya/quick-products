@@ -10,8 +10,7 @@ import {CustomTextInput, CustomButton, CustomText} from '../../fields';
 import styles from './Login.styles.js';
 import Logo from '../../assets/logo.png';
 
-import axios from 'axios';
-import qs from 'qs';
+import {sendLoginRequest} from '../../controllers/';
 
 // Mock
 import LoginResult from '../../mock/login_data';
@@ -37,65 +36,34 @@ function Login({navigation}) {
     initialValues: {username: '', password: ''},
     onSubmit: values => {
       // Handle Login with Mock Data
-      (() => {
-        const data = LoginResult;
-        const {message, responseCode, content} = data;
-        const {userInfo} = content;
-        const {appKey} = userInfo; // TODO: Add to Redux Store
-        // TODO: Find Answers for The Questions Below
-        //  * Are appKeys constant or changing every single login?
-        //  * Are appKeys using as a header?
-        console.log(message, responseCode, appKey);
-        if (message == 'success' && responseCode == 200) {
-          dispatch(logIn({isLoggedIn}));
-          navigation.navigate('Quick Forms', {screen: 'Dashboard'});
-        }
-      })();
+      // (() => {
+      //   const data = LoginResult;
+      //   const {message, responseCode, content} = data;
+      //   const {userInfo} = content;
+      //   const {appKey} = userInfo; // TODO: Add to Redux Store
+      //   // TODO: Find Answers for The Questions Below
+      //   //  * Are appKeys constant or changing every single login?
+      //   //  * Are appKeys using as a header?
+      //   console.log(message, responseCode, appKey);
+      //   if (message == 'success' && responseCode == 200) {
+      //     dispatch(logIn({isLoggedIn}));
+      //     navigation.navigate('Quick Forms', {screen: 'Dashboard'});
+      //   }
+      // })();
 
-      // Handle Login with Real Data
-      /*
-      // Login endpoint
-      const endpoint = 'https://m-baydogan.jotform.dev/intern-api/user/login';
-
-      // Stringify parameters as Query String
-      // JSON.stringify does not work here because the endpoint does not support it
-      const data = qs.stringify({
+      // The data to be sent with login request
+      const data = {
         username: values.username,
         password: values.password,
-      });
-
-      // Axios Config
-      const config = {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
       };
 
-      // Axios POST Request
-      axios
-        .post(endpoint, data, config)
-        .then(({data}) => {
-          // Destructure Data
-          const {responseCode, content} = data;
-          const {userInfo} = content;
-
-          // Control
-          const isNotLoginSuccessful = Object.keys(userInfo).length < 1;
-          if (isNotLoginSuccessful) {
-            console.log('Username or password is invalid.');
-            return;
-          }
-
-          // If login action success
-          const {appKey} = userInfo;
+      sendLoginRequest(data).then(({appKey, isLoggedIn}) => {
+        if (isLoggedIn) {
           console.log(appKey);
           dispatch(logIn({isLoggedIn}));
           navigation.navigate('Quick Forms', {screen: 'Dashboard'});
-        })
-        .catch(err => {
-          console.error(err);
-        });
-        */
+        }
+      });
     },
   });
 
