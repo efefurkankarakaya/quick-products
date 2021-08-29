@@ -12,6 +12,8 @@ import Logo from '../../assets/logo.png';
 
 import {sendLoginRequest} from '../../controllers/';
 
+import {setItem} from '../../utils/databaseHelpers';
+
 // Mock
 import LoginResult from '../../mock/login_data';
 
@@ -60,6 +62,7 @@ function Login({navigation}) {
       sendLoginRequest(data).then(({appKey, isLoggedIn}) => {
         if (isLoggedIn) {
           console.log(appKey);
+          setItem('user', {isLoggedIn, appKey});
           dispatch(logIn({isLoggedIn}));
           navigation.navigate('Quick Forms', {screen: 'Dashboard'});
         }

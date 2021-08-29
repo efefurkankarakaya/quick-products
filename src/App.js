@@ -60,19 +60,10 @@ const QuickFormsStackScreens = () => {
     }
 */
 
-setItem('user', {
-  onceLoggedIn: false,
-  appKey: '12kd12kd11ks11k',
-}).then(() => {
-  console.log('User set.');
-});
+let isThereAnyLoggedInAccount = false;
 
-getItem('user').then(user => {
-  console.log(user);
-});
-
-removeItem('user').then(user => {
-  console.log('User removed.');
+getItem('user').then(({isLoggedIn, appKey}) => {
+  isThereAnyLoggedInAccount = isLoggedIn && appKey ? true : false;
 });
 
 function App() {
@@ -84,7 +75,9 @@ function App() {
           screenOptions={{
             headerShown: false,
           }}>
-          <Stack.Screen name="First Login" component={PreLoginStackScreens} />
+          {!isThereAnyLoggedInAccount && (
+            <Stack.Screen name="First Login" component={PreLoginStackScreens} />
+          )}
           <Stack.Screen name="Quick Forms" component={QuickFormsStackScreens} />
         </Stack.Navigator>
       </NavigationContainer>
