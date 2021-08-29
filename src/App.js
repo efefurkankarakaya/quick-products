@@ -19,23 +19,23 @@ import styles from './App.style';
 
 const Stack = createNativeStackNavigator();
 
-const FLSSHeaderOptions = {
+const PLSSHeaderOptions = {
   headerTitleAlign: 'center',
   title: 'Quick Products',
 };
 
-const FirstLoginStackScreens = () => {
+const PreLoginStackScreens = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Login"
         component={Login}
-        options={FLSSHeaderOptions}
+        options={PLSSHeaderOptions}
       />
       <Stack.Screen
         name="Register"
         component={Register}
-        options={FLSSHeaderOptions}
+        options={PLSSHeaderOptions}
       />
     </Stack.Navigator>
   );
@@ -68,7 +68,7 @@ function App() {
           screenOptions={{
             headerShown: false,
           }}>
-          <Stack.Screen name="First Login" component={FirstLoginStackScreens} />
+          <Stack.Screen name="First Login" component={PreLoginStackScreens} />
           <Stack.Screen name="Quick Forms" component={QuickFormsStackScreens} />
         </Stack.Navigator>
       </NavigationContainer>
