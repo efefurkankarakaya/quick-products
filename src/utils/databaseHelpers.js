@@ -3,7 +3,7 @@ import {isObject} from './objectHelpers';
 
 /**
  * @param {string} key - Key to store the value.
- * @param {number|string|object} value - The value to pair with key.
+ * @param {number | string | object} value - The value to pair with key.
  * @returns {void} - Returns nothing.
  */
 export async function setItem(key, value) {
@@ -20,7 +20,7 @@ export async function setItem(key, value) {
 
 /**
  * @param {string} key - Key to get the value.
- * @returns {string|object} - Returns the value paired with key.
+ * @returns {string | object} - Returns the value paired with key.
  */
 export async function getItem(key) {
   try {

@@ -20,33 +20,6 @@ async function sendLoginRequest(loginData) {
     },
   };
 
-  // Axios POST Request
-  // return await axios
-  //   .post(endpoint, loginData, config)
-  //   .then(({data}) => {
-  //     // Destructure Data
-  //     const {responseCode, content} = data;
-  //     const {userInfo} = content;
-
-  //     const loginStatus = {
-  //       isLoggedIn: false,
-  //       appKey: null,
-  //     };
-
-  //     // Check returned data
-  //     const isNotLoginSuccessful = Object.keys(userInfo).length < 1;
-  //     if (isNotLoginSuccessful) {
-  //       console.log('Username or password is invalid.');
-  //       return loginStatus;
-  //     }
-  //     loginStatus.isLoggedIn = true;
-  //     loginStatus.appKey = userInfo.appKey;
-  //     return loginStatus;
-  //   })
-  //   .catch(err => {
-  //     console.error(err);
-  //   });
-
   const loginStatus = {
     isLoggedIn: false,
     appKey: null,
