@@ -4,7 +4,7 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {logIn} from '../../redux/login/loginSlice';
+import {logIn} from '../../redux/reducers/loginReducer';
 
 import {sendLoginRequest} from '../../controllers/';
 

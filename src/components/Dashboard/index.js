@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList} from 'react-native';
-import styles from './Dashboard.style';
+
+import {useDispatch} from 'react-redux';
+import {updateActiveForm} from '../../redux/reducers/formReducer';
 
 import {getForms} from '../../controllers/';
 import {getItem} from '../../utils/databaseHelpers';
+
+import styles from './Dashboard.style';
 
 import {CustomItem, CustomRoundedButton} from '../../fields';
 
@@ -19,12 +23,19 @@ async function loadForms() {
 }
 
 function Dashboard({navigation}) {
+  const dispatch = useDispatch();
+
   const [forms, setForms] = useState([]);
+
+  // When the component mounted, load forms
   useEffect(() => {
     // Check every second if there are new forms or changes
-    setInterval(() => {
-      loadForms().then(forms => setForms(forms));
-    }, 1000);
+    // setInterval(() => {
+    //   loadForms().then(forms => setForms(forms));
+    // }, 1000);
+
+    // TODO: Add swipe refresh
+    loadForms().then(forms => setForms(forms));
   }, []);
 
   // Create Form Item onPress Handler
@@ -36,11 +47,14 @@ function Dashboard({navigation}) {
   // Form Item onPress Handler
   const onFormPress = (formId, formTitle) => {
     console.log(formId, formTitle);
+    // TODO: Send formId and formTitle to Redux Store
+    const activeFormData = {
+      formId,
+      formTitle,
+    };
+    dispatch(updateActiveForm(activeFormData));
     navigation.navigate('Quick Forms', {
       screen: 'Form Detail',
-      params: {
-        formTitle,
-      },
     });
   };
 

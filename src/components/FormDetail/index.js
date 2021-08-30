@@ -1,6 +1,11 @@
 import React from 'react';
 import {View, FlatList} from 'react-native';
 
+import {useSelector, useDispatch} from 'react-redux';
+import {updateActiveProduct} from '../../redux/reducers/productReducer';
+
+import {getProducts} from '../../controllers';
+
 import {
   CustomItem,
   CustomRoundedButton,
@@ -13,10 +18,24 @@ import {Question, Plus} from '../../assets';
 // Get products
 import FormDetailsData from '../../mock/product_data';
 
-function FormDetail({navigation, route}) {
+async function loadProducts(formId) {
+  try {
+    const {appKey} = await getItem('user');
+    return await getProducts(appKey, formId);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function FormDetail({navigation}) {
+  const {formId, formTitle} = useSelector(({form}) => form);
+  console.log(formId, formTitle);
+
+  const dispatch = useDispatch();
+
   // Set header title as shown form title
   navigation.setOptions({
-    title: route.params?.formTitle,
+    title: formTitle,
   });
 
   const {content} = FormDetailsData;
@@ -29,15 +48,16 @@ function FormDetail({navigation, route}) {
 
   // Product onPress Handler
   const onProductPress = product => {
-    console.log(product.pid);
+    const activeProductData = {
+      productId: product.pid,
+      productName: product.name,
+      productDescription: product.description,
+      productPrice: product.price,
+      productImages: product.images,
+    };
+    dispatch(updateActiveProduct(activeProductData));
     navigation.navigate('Quick Forms', {
       screen: 'Product Detail',
-      params: {
-        productName: product.name,
-        productDescription: product.description,
-        productPrice: product.price,
-        productImages: product.images,
-      },
     });
   };
 
