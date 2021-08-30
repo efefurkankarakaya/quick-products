@@ -2,4 +2,4 @@
 export {sendLoginRequest} from './preLogin/loginController';
 
 // Form Controller
-export {getForms} from './postLogin/formController';
+export {createForm, getForms} from './postLogin/formController';

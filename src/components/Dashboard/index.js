@@ -7,8 +7,7 @@ import {getItem} from '../../utils/databaseHelpers';
 
 import {CustomItem, CustomRoundedButton} from '../../fields';
 
-import Plus from '../../assets/plus.png';
-import QuestionMark from '../../assets/question.jpg';
+import {Plus, Question} from '../../assets';
 
 async function loadForms() {
   try {
@@ -22,7 +21,10 @@ async function loadForms() {
 function Dashboard({navigation}) {
   const [forms, setForms] = useState([]);
   useEffect(() => {
-    loadForms().then(forms => setForms(forms));
+    // Check every second if there are new forms or changes
+    setInterval(() => {
+      loadForms().then(forms => setForms(forms));
+    }, 1000);
   }, []);
 
   // Create Form Item onPress Handler
@@ -48,7 +50,7 @@ function Dashboard({navigation}) {
       title={form.title}
       subText={'Last change: ' + form.updated_at}
       onPress={() => onFormPress(form.id, form.title)}
-      image={QuestionMark}
+      image={Question}
     />
   );
   const extractKey = (item, _) => item.id;
