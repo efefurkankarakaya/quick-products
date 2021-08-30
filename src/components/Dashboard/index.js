@@ -5,6 +5,11 @@ import styles from './Dashboard.style';
 import {getForms} from '../../controllers/';
 import {getItem} from '../../utils/databaseHelpers';
 
+import {CustomItem, CustomRoundedButton} from '../../fields';
+
+import Plus from '../../assets/plus.png';
+import QuestionMark from '../../assets/question.jpg';
+
 async function loadForms() {
   try {
     const {appKey} = await getItem('user');
@@ -13,11 +18,6 @@ async function loadForms() {
     console.log(err);
   }
 }
-
-import {CustomItem, CustomRoundedButton} from '../../fields';
-
-import Plus from '../../assets/plus.png';
-import QuestionMark from '../../assets/question.jpg';
 
 function Dashboard({navigation}) {
   const [forms, setForms] = useState([]);

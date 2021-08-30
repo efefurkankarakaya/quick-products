@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator} from 'react-native';
 
 import {store} from './redux/store';
 import {Provider} from 'react-redux';
@@ -27,7 +28,7 @@ const PLSSHeaderOptions = {
 
 const PreLoginStackScreens = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="Login"
         component={Login}
@@ -46,7 +47,7 @@ const QFSSHeaderOptions = {};
 
 const QuickFormsStackScreens = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Dashboard">
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="Form Detail" component={FormDetail} />
       <Stack.Screen name="Product Detail" component={ProductDetail} />
@@ -54,38 +55,48 @@ const QuickFormsStackScreens = () => {
   );
 };
 
-/* TODO: Dynamic initial routing (with using LowDB or AsyncLocalStorage)
-    if (user.onceLoggedIn) {
-      return <Stack.Navigator initialRouteName="Dashboard" />;
-    }
-*/
-
-let isThereAnyLoggedInAccount = false;
-
-getItem('user').then(({isLoggedIn, appKey}) => {
-  console.log(isLoggedIn, appKey);
-  // TODO: \Question/ Are appKeys constant or changing every single login?
-  // TODO: \Question/ Is there any way to check if the appKey is valid?
-  // TODO: Store appKey in Redux store (or not necessary?)
-  // TODO: useEffect & useState to solve not skipping login page sometimes.
-  isThereAnyLoggedInAccount = isLoggedIn && appKey ? true : false;
-});
+async function getIsAnyUserLoggedInOnce() {
+  const {isLoggedIn, appKey} = await getItem('user');
+  console.log('AND: ' + isLoggedIn && appKey);
+  return isLoggedIn && appKey;
+}
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isThereAnyLoggedInAccount, setIsThereAnyLoggedInAccount] =
+    useState(false);
+
+  useEffect(() => {
+    getIsAnyUserLoggedInOnce().then(res => {
+      setIsThereAnyLoggedInAccount(res);
+      setIsLoading(false);
+    });
+  }, []);
+
+  const initialMainRouteName = isThereAnyLoggedInAccount
+    ? 'Quick Forms'
+    : 'Pre Login';
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Login"
-          screenOptions={{
-            headerShown: false,
-          }}>
-          {!isThereAnyLoggedInAccount && (
-            <Stack.Screen name="First Login" component={PreLoginStackScreens} />
-          )}
-          <Stack.Screen name="Quick Forms" component={QuickFormsStackScreens} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      {isLoading ? (
+        <ActivityIndicator size="large" color="black" />
+      ) : (
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName={initialMainRouteName}
+            screenOptions={{
+              headerShown: false,
+            }}>
+            {!isThereAnyLoggedInAccount && (
+              <Stack.Screen name="Pre Login" component={PreLoginStackScreens} />
+            )}
+            <Stack.Screen
+              name="Quick Forms"
+              component={QuickFormsStackScreens}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      )}
     </Provider>
   );
 }
