@@ -6,16 +6,13 @@ import * as Yup from 'yup';
 import {useSelector, useDispatch} from 'react-redux';
 import {logIn} from '../../redux/login/loginSlice';
 
-import {CustomTextInput, CustomButton, CustomText} from '../../fields';
-import styles from './Login.styles.js';
-import Logo from '../../assets/logo.png';
-
 import {sendLoginRequest} from '../../controllers/';
 
 import {setItem} from '../../utils/databaseHelpers';
 
-// Mock
-import LoginResult from '../../mock/login_data';
+import {CustomTextInput, CustomButton, CustomText} from '../../fields';
+import styles from './Login.styles.js';
+import Logo from '../../assets/logo.png';
 
 // Validations
 const loginSchema = Yup.object().shape({
@@ -37,22 +34,6 @@ function Login({navigation}) {
     validationSchema: loginSchema,
     initialValues: {username: '', password: ''},
     onSubmit: values => {
-      // Handle Login with Mock Data
-      // (() => {
-      //   const data = LoginResult;
-      //   const {message, responseCode, content} = data;
-      //   const {userInfo} = content;
-      //   const {appKey} = userInfo; // TODO: Add to Redux Store
-      //   // TODO: Find Answers for The Questions Below
-      //   //  * Are appKeys constant or changing every single login?
-      //   //  * Are appKeys using as a header?
-      //   console.log(message, responseCode, appKey);
-      //   if (message == 'success' && responseCode == 200) {
-      //     dispatch(logIn({isLoggedIn}));
-      //     navigation.navigate('Quick Forms', {screen: 'Dashboard'});
-      //   }
-      // })();
-
       // The data to be sent with login request
       const data = {
         username: values.username,

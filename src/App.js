@@ -63,6 +63,11 @@ const QuickFormsStackScreens = () => {
 let isThereAnyLoggedInAccount = false;
 
 getItem('user').then(({isLoggedIn, appKey}) => {
+  console.log(isLoggedIn, appKey);
+  // TODO: \Question/ Are appKeys constant or changing every single login?
+  // TODO: \Question/ Is there any way to check if the appKey is valid?
+  // TODO: Store appKey in Redux store (or not necessary?)
+  // TODO: useEffect & useState to solve not skipping login page sometimes.
   isThereAnyLoggedInAccount = isLoggedIn && appKey ? true : false;
 });
 

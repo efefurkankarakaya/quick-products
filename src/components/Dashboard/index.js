@@ -1,15 +1,29 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList} from 'react-native';
 import styles from './Dashboard.style';
 
+import {getForms} from '../../controllers/';
+import {getItem} from '../../utils/databaseHelpers';
+
+async function loadForms() {
+  try {
+    const {appKey} = await getItem('user');
+    return await getForms(appKey);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 import {CustomItem, CustomRoundedButton} from '../../fields';
 
-import LocalFormData from '../../mock/form_data';
 import Plus from '../../assets/plus.png';
 import QuestionMark from '../../assets/question.jpg';
 
 function Dashboard({navigation}) {
-  const {content} = LocalFormData;
+  const [forms, setForms] = useState([]);
+  useEffect(() => {
+    loadForms().then(forms => setForms(forms));
+  }, []);
 
   // Create Form Item onPress Handler
   const onCreateFormPress = () => {
@@ -39,12 +53,11 @@ function Dashboard({navigation}) {
   );
   const extractKey = (item, _) => item.id;
 
-  // TODO: memoization?
   return (
     <View style={styles.container}>
       <FlatList
         keyExtractor={extractKey}
-        data={content}
+        data={forms}
         renderItem={renderForm}
       />
       <CustomRoundedButton icon={Plus} onPress={onCreateFormPress} />
