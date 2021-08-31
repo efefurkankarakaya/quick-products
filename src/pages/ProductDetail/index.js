@@ -3,7 +3,7 @@ import {View, Text, Image} from 'react-native';
 
 import {useSelector} from 'react-redux';
 
-import {CustomEditableTextInput, CustomImageList} from '../../fields';
+import {CustomEditableTextInput, CustomImageList} from '../../components';
 
 import styles from './ProductDetail.style';
 

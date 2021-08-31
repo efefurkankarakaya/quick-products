@@ -9,7 +9,7 @@ import {setItem} from '../../utils/databaseHelpers';
 
 import {sendLoginRequest} from '../../controllers/';
 
-import {CustomTextInput, CustomButton, CustomText} from '../../fields';
+import {CustomTextInput, CustomButton, CustomText} from '../../components';
 import styles from './Login.styles.js';
 import Logo from '../../assets/logo.png';
 

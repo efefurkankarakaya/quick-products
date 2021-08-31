@@ -16,7 +16,7 @@ import {
   Dashboard,
   FormDetail,
   ProductDetail,
-} from './components';
+} from './pages';
 import styles from './App.style';
 
 const Stack = createNativeStackNavigator();

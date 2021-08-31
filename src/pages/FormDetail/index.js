@@ -12,7 +12,7 @@ import {
   CustomRoundedButton,
   CustomEditableText,
   CustomEditableTextInput,
-} from '../../fields';
+} from '../../components';
 
 import styles from './FormDetail.style';
 import {Question, Plus} from '../../assets';
