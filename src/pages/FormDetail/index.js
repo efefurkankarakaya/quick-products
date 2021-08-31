@@ -20,6 +20,7 @@ import {Question, Plus} from '../../assets';
 // Get products
 import FormDetailsData from '../../mock/product_data';
 
+// Load products
 async function loadProducts(formId) {
   try {
     const {appKey} = await getItem('user');
@@ -30,30 +31,23 @@ async function loadProducts(formId) {
   }
 }
 
-// async function updateForm(formId, formTitleInput) {
-//   try {
-//     const {appKey} = await getItem('user');
-//     return await sendUpdateFormRequest(appKey, formId, formTitleInput);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// }
-
 function FormDetail({navigation}) {
-  const {formId, formTitle} = useSelector(({form}) => form);
   const dispatch = useDispatch();
 
-  const [formTitleInput, setFormTitleInput] = useState('');
-  const [products, setProducts] = useState([]);
+  // Get formId for load products.
+  // Get formTitle for set header title.
+  const {formId, formTitle} = useSelector(({form}) => form);
+  const [products, setProducts] = useState([]); // Products Array
 
   console.log(formId, formTitle);
+  // Load products when component is mounted.
   useEffect(() => {
-    // Set header title as shown form title
+    // Set header title as shown form title.
     navigation.setOptions({
       title: formTitle,
     });
-    setFormTitleInput(formTitle); // TODO: Seperated effects?
 
+    // Set products when is loaded.
     loadProducts(formId).then(products => {
       setProducts(products);
     });
@@ -93,11 +87,7 @@ function FormDetail({navigation}) {
 
   return (
     <View style={styles.container}>
-      <CustomEditableTextInput
-        label="Name"
-        value={formTitleInput}
-        onChangeText={text => setFormTitleInput(text)}
-      />
+      <CustomEditableTextInput label="Search" />
       <CustomEditableText value="Freelance" />
       <CustomEditableText value="Lorem ipsum dolor sit amet." />
       <FlatList

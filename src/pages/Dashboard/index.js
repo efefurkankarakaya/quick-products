@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, FlatList} from 'react-native';
 
 import {useDispatch} from 'react-redux';
 import {updateActiveForm} from '../../redux/reducers/formReducer';
@@ -7,7 +7,7 @@ import {getItem} from '../../utils/databaseHelpers';
 
 import Dialog from 'react-native-dialog';
 
-import {sendCreateFormRequest, getForms} from '../../controllers/';
+import {sendCreateFormRequest, sendGetFormsRequest} from '../../controllers/';
 
 import styles from './Dashboard.style';
 import {CustomItem, CustomRoundedButton} from '../../components';
@@ -25,7 +25,7 @@ async function createForm(formTitle) {
 async function loadForms() {
   try {
     const {appKey} = await getItem('user');
-    return await getForms(appKey);
+    return await sendGetFormsRequest(appKey);
   } catch (err) {
     console.error(err);
   }
