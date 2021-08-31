@@ -30,13 +30,21 @@ async function loadProducts(formId) {
   }
 }
 
+// async function updateForm(formId, formTitleInput) {
+//   try {
+//     const {appKey} = await getItem('user');
+//     return await sendUpdateFormRequest(appKey, formId, formTitleInput);
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
+
 function FormDetail({navigation}) {
   const {formId, formTitle} = useSelector(({form}) => form);
   const dispatch = useDispatch();
 
   const [formTitleInput, setFormTitleInput] = useState('');
   const [products, setProducts] = useState([]);
-  // TODO: Loading state
 
   console.log(formId, formTitle);
   useEffect(() => {
@@ -50,8 +58,6 @@ function FormDetail({navigation}) {
       setProducts(products);
     });
   }, []);
-
-  const {content} = FormDetailsData;
 
   // Create Product onPress Handler
   const onCreateProductPress = () => {

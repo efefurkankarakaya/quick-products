@@ -5,16 +5,18 @@ import {useDispatch} from 'react-redux';
 import {updateActiveForm} from '../../redux/reducers/formReducer';
 import {getItem} from '../../utils/databaseHelpers';
 
+import Dialog from 'react-native-dialog';
+
 import {sendCreateFormRequest, getForms} from '../../controllers/';
 
 import styles from './Dashboard.style';
 import {CustomItem, CustomRoundedButton} from '../../components';
 import {Plus, Question} from '../../assets';
 
-async function createForm() {
+async function createForm(formTitle) {
   try {
     const {appKey} = await getItem('user');
-    return await sendCreateFormRequest(appKey, 'Müthiş Form');
+    return await sendCreateFormRequest(appKey, formTitle);
   } catch (err) {
     console.error(err);
   }
@@ -32,32 +34,54 @@ async function loadForms() {
 function Dashboard({navigation}) {
   const dispatch = useDispatch();
 
-  const [forms, setForms] = useState([]);
+  const [forms, setForms] = useState([]); // Form Array
+  const [isVisible, setIsVisible] = useState(false); // Dialog Visibility
+  const [formTitleInputText, setFormTitleInputText] = useState(''); // Dialog Input Data
 
-  // When the component mounted, load forms
+  // When the component is mounted, then load forms.
   useEffect(() => {
     // TODO: Add swipe refresh
     loadForms().then(forms => setForms(forms));
   }, []);
 
-  // Create Form Item onPress Handler
-  const onCreateFormPress = () => {
-    createForm().then(({id: formId, title: formTitle}) => {
+  // Clears the dialog input after action.
+  const clearDialogInput = () => setFormTitleInputText('');
+
+  // Handles the cancel option in the dialog.
+  const handleCancel = () => {
+    setIsVisible(false);
+    clearDialogInput();
+  };
+
+  // Handles the create option in the dialog.
+  const handleCreate = () => {
+    setIsVisible(false);
+    createForm(formTitleInputText).then(({id: formId, title: formTitle}) => {
       const activeFormData = {
         formId,
         formTitle,
       };
       dispatch(updateActiveForm(activeFormData));
+      clearDialogInput();
       navigation.navigate('Quick Forms', {
         screen: 'Form Detail',
       });
     });
   };
 
+  // Displays dialog to create a new form.
+  const displayDialog = () => {
+    setIsVisible(true);
+  };
+
+  // Create Form Item onPress Handler
+  const onCreateFormPress = () => {
+    displayDialog();
+  };
+
   // Form Item onPress Handler
   const onFormPress = (formId, formTitle) => {
     console.log(formId, formTitle);
-    // TODO: Send formId and formTitle to Redux Store
     const activeFormData = {
       formId,
       formTitle,
@@ -81,6 +105,20 @@ function Dashboard({navigation}) {
 
   return (
     <View style={styles.container}>
+      <View>
+        <Dialog.Container visible={isVisible}>
+          <Dialog.Title>Form Creation</Dialog.Title>
+          <Dialog.Description>
+            Give your form a unique title.
+          </Dialog.Description>
+          <Dialog.Button label="Cancel" onPress={handleCancel} />
+          <Dialog.Input
+            value={formTitleInputText}
+            onChangeText={setFormTitleInputText}
+          />
+          <Dialog.Button label="Create" onPress={handleCreate} />
+        </Dialog.Container>
+      </View>
       <FlatList
         keyExtractor={extractKey}
         data={forms}
