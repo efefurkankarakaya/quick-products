@@ -55,10 +55,15 @@ const QuickFormsStackScreens = () => {
   );
 };
 
+// TODO: Fix null object error while no data is present in the database
 async function getIsAnyUserLoggedInOnce() {
-  const {isLoggedIn, appKey} = await getItem('user');
-  console.log('AND: ' + isLoggedIn && appKey);
-  return isLoggedIn && appKey;
+  try {
+    const {isLoggedIn, appKey} = await getItem('user');
+    console.log('AND: ' + isLoggedIn && appKey);
+    return isLoggedIn && appKey;
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 function App() {

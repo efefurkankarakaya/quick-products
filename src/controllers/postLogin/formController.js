@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-// let endpoint = `https://api.jotform.com/user/forms?apiKey=${appKey}`;
-const endpoint = 'https://api.jotform.com/user/forms';
+import {convertJSONToQueryString} from '../../utils/objectHelpers';
 
-// TODO: Add docs
 async function getForms(appKey) {
+  const limit = 100;
+  const endpoint = `https://api.jotform.com/user/forms?limit=${limit}`;
+
   const config = {
     headers: {
       apiKey: appKey,
@@ -24,6 +25,30 @@ async function getForms(appKey) {
   }
 }
 
-async function createForm() {}
+async function sendCreateFormRequest(appKey) {
+  const endpoint = `https://api.jotform.com/user/forms?apiKey=${appKey}`;
 
-export {createForm, getForms};
+  const formData = convertJSONToQueryString({
+    'properties[title]': 'New Form',
+  });
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  };
+
+  try {
+    const {data} = await axios.post(endpoint, formData, config);
+    const {content, responseCode} = data;
+    if (responseCode !== 200) {
+      console.error('Network error: ' + responseCode);
+      return [];
+    }
+    return content;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export {sendCreateFormRequest, getForms};

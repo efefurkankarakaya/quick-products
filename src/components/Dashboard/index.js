@@ -5,18 +5,27 @@ import {useDispatch} from 'react-redux';
 import {updateActiveForm} from '../../redux/reducers/formReducer';
 import {getItem} from '../../utils/databaseHelpers';
 
-import {getForms} from '../../controllers/';
+import {sendCreateFormRequest, getForms} from '../../controllers/';
 
 import styles from './Dashboard.style';
 import {CustomItem, CustomRoundedButton} from '../../fields';
 import {Plus, Question} from '../../assets';
+
+async function createForm() {
+  try {
+    const {appKey} = await getItem('user');
+    return await sendCreateFormRequest(appKey, 'Müthiş Form');
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 async function loadForms() {
   try {
     const {appKey} = await getItem('user');
     return await getForms(appKey);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -24,6 +33,7 @@ function Dashboard({navigation}) {
   const dispatch = useDispatch();
 
   const [forms, setForms] = useState([]);
+  const [isThereAnyUpdate, setIsThereAnyUpdate] = useState(0);
 
   // When the component mounted, load forms
   useEffect(() => {
@@ -34,12 +44,14 @@ function Dashboard({navigation}) {
 
     // TODO: Add swipe refresh
     loadForms().then(forms => setForms(forms));
-  }, []);
+  }, [[], isThereAnyUpdate]);
 
   // Create Form Item onPress Handler
   const onCreateFormPress = () => {
-    console.log('Create form');
-    // TODO: Create Form Function
+    createForm().then(status => {
+      console.log(status);
+      setIsThereAnyUpdate(isThereAnyUpdate + 1);
+    });
   };
 
   // Form Item onPress Handler

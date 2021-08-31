@@ -15,9 +15,7 @@ async function getProducts(appKey, formId) {
     },
   };
   try {
-    console.log(endpoint);
     const {data} = await axios.get(endpoint, config);
-    console.log(data);
     const {content, responseCode} = data;
     if (responseCode !== 200) {
       console.error('Network error: ' + responseCode);

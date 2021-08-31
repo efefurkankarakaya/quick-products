@@ -11,6 +11,7 @@ import {
   CustomItem,
   CustomRoundedButton,
   CustomEditableText,
+  CustomEditableTextInput,
 } from '../../fields';
 
 import styles from './FormDetail.style';
@@ -25,7 +26,7 @@ async function loadProducts(formId) {
     console.log('appKey: ' + appKey);
     return await getProducts(appKey, formId);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -33,21 +34,22 @@ function FormDetail({navigation}) {
   const {formId, formTitle} = useSelector(({form}) => form);
   const dispatch = useDispatch();
 
+  const [formTitleInput, setFormTitleInput] = useState('');
   const [products, setProducts] = useState([]);
   // TODO: Loading state
 
   console.log(formId, formTitle);
   useEffect(() => {
+    // Set header title as shown form title
+    navigation.setOptions({
+      title: formTitle,
+    });
+    setFormTitleInput(formTitle); // TODO: Seperated effects?
+
     loadProducts(formId).then(products => {
-      console.log(products);
       setProducts(products);
     });
   }, []);
-
-  // Set header title as shown form title
-  navigation.setOptions({
-    title: formTitle,
-  });
 
   const {content} = FormDetailsData;
 
@@ -84,12 +86,12 @@ function FormDetail({navigation}) {
   const extractKey = (item, _) => item.pid;
 
   return (
-    // TODO: Add editable title
-    // TODO: Add editable description
-    // TODO: Navigate product details page
-    // TODO: Add product creation
-    // TODO: Add product deletion
     <View style={styles.container}>
+      <CustomEditableTextInput
+        label="Name"
+        value={formTitleInput}
+        onChangeText={text => setFormTitleInput(text)}
+      />
       <CustomEditableText value="Freelance" />
       <CustomEditableText value="Lorem ipsum dolor sit amet." />
       <FlatList
