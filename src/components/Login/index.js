@@ -5,10 +5,9 @@ import * as Yup from 'yup';
 
 import {useSelector, useDispatch} from 'react-redux';
 import {logIn} from '../../redux/reducers/loginReducer';
+import {setItem} from '../../utils/databaseHelpers';
 
 import {sendLoginRequest} from '../../controllers/';
-
-import {setItem} from '../../utils/databaseHelpers';
 
 import {CustomTextInput, CustomButton, CustomText} from '../../fields';
 import styles from './Login.styles.js';

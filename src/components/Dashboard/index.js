@@ -3,14 +3,12 @@ import {View, Text, FlatList} from 'react-native';
 
 import {useDispatch} from 'react-redux';
 import {updateActiveForm} from '../../redux/reducers/formReducer';
-
-import {getForms} from '../../controllers/';
 import {getItem} from '../../utils/databaseHelpers';
 
+import {getForms} from '../../controllers/';
+
 import styles from './Dashboard.style';
-
 import {CustomItem, CustomRoundedButton} from '../../fields';
-
 import {Plus, Question} from '../../assets';
 
 async function loadForms() {

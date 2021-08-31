@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, FlatList} from 'react-native';
 
 import {useSelector, useDispatch} from 'react-redux';
 import {updateActiveProduct} from '../../redux/reducers/productReducer';
+import {getItem} from '../../utils/databaseHelpers';
 
 import {getProducts} from '../../controllers';
 
@@ -21,6 +22,7 @@ import FormDetailsData from '../../mock/product_data';
 async function loadProducts(formId) {
   try {
     const {appKey} = await getItem('user');
+    console.log('appKey: ' + appKey);
     return await getProducts(appKey, formId);
   } catch (err) {
     console.log(err);
@@ -29,9 +31,18 @@ async function loadProducts(formId) {
 
 function FormDetail({navigation}) {
   const {formId, formTitle} = useSelector(({form}) => form);
-  console.log(formId, formTitle);
-
   const dispatch = useDispatch();
+
+  const [products, setProducts] = useState([]);
+  // TODO: Loading state
+
+  console.log(formId, formTitle);
+  useEffect(() => {
+    loadProducts(formId).then(products => {
+      console.log(products);
+      setProducts(products);
+    });
+  }, []);
 
   // Set header title as shown form title
   navigation.setOptions({
@@ -83,7 +94,7 @@ function FormDetail({navigation}) {
       <CustomEditableText value="Lorem ipsum dolor sit amet." />
       <FlatList
         keyExtractor={extractKey}
-        data={content}
+        data={products}
         renderItem={renderProduct}
       />
       <CustomRoundedButton icon={Plus} onPress={onCreateProductPress} />
