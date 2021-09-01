@@ -11,7 +11,7 @@ import {sendCreateFormRequest, sendGetFormsRequest} from '../../controllers/';
 
 import styles from './Dashboard.style';
 import {CustomItem, CustomRoundedButton} from '../../components';
-import {Plus, Question} from '../../assets';
+import {Doc, AddButton} from '../../assets';
 
 async function createForm(formTitle) {
   try {
@@ -98,7 +98,7 @@ function Dashboard({navigation}) {
       title={form.title}
       subText={'Last change: ' + form.updated_at}
       onPress={() => onFormPress(form.id, form.title)}
-      image={Question}
+      image={Doc}
     />
   );
   const extractKey = (item, _) => item.id;
@@ -124,7 +124,7 @@ function Dashboard({navigation}) {
         data={forms}
         renderItem={renderForm}
       />
-      <CustomRoundedButton icon={Plus} onPress={onCreateFormPress} />
+      <CustomRoundedButton icon={AddButton} onPress={onCreateFormPress} />
     </View>
   );
 }

@@ -3,11 +3,13 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     alignItems: 'flex-end',
+    position:'relative'
   },
   icon: {
-    width: 45,
-    height: 45,
+    right: 10,
+    bottom: 10,
+    width: 65,
+    height: 65,
     borderRadius: 100,
-    backgroundColor: '#fff',
   },
 });

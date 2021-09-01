@@ -43,14 +43,30 @@ const PreLoginStackScreens = () => {
   );
 };
 
-const QFSSHeaderOptions = {};
+const QFSSHeaderOptions = {
+   headerTitleAlign: 'center',
+  title: 'My Forms',
+
+
+  headerStyle: {
+  backgroundColor: '#0A1551',
+  },
+
+  headerTintColor: '#fff',
+
+  headerTitleStyle: {
+  fontWeight: 'bold',
+  },
+};
 
 const QuickFormsStackScreens = () => {
   return (
     <Stack.Navigator initialRouteName="Dashboard">
-      <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="Dashboard" component={Dashboard}
+      options={{headerStyle: {backgroundColor: '#0A1551'} }} />
       <Stack.Screen name="Form Detail" component={FormDetail} />
-      <Stack.Screen name="Product Detail" component={ProductDetail} />
+      <Stack.Screen name="Product Detail" component={ProductDetail}
+      options={{headerStyle: {backgroundColor: '#303339'} }} />
     </Stack.Navigator>
   );
 };
