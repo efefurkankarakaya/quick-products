@@ -18,7 +18,7 @@ import {
 import {parseStringToArray} from '../../utils/arrayHelpers';
 
 import styles from './FormDetail.style';
-import {Question, Plus, Cross} from '../../assets';
+import {Something, AddButton, TrashBox} from '../../assets';
 
 // Load products
 async function loadProducts(formId) {
@@ -104,7 +104,7 @@ function FormDetail({navigation}) {
           dynamicLabelStyle={styles.searchLabel}
           placeholder="Search"
         />
-        <CustomImage dynamicStyle={styles.layout} source={Plus} />
+        <CustomImage dynamicStyle={styles.layout} source={Something} />
       </View>
       <FlatList
         style={styles.flatList}
@@ -114,8 +114,8 @@ function FormDetail({navigation}) {
         renderItem={renderProduct}
       />
       <View style={styles.buttonContainer}>
-        <CustomRoundedButton icon={Cross} onPress={onDeleteProductPress} />
-        <CustomRoundedButton icon={Plus} onPress={onCreateProductPress} />
+        <CustomRoundedButton icon={TrashBox} onPress={onDeleteProductPress} />
+        <CustomRoundedButton icon={AddButton} onPress={onCreateProductPress} />
       </View>
     </View>
   );

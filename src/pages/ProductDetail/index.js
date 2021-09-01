@@ -29,7 +29,7 @@ function ProductDetail() {
   return (
     <View style={styles.container}>
       <CustomEditableTextInput style={styles.dark} label="Name" value={productName} />
-      <CustomEditableTextInput style={styles.dark, styles.descriptionHeight} label="Description" value={productDescription} />
+      <CustomEditableTextInput style={styles.dark, styles.descriptionHeight} label="Description" value={productDescription} textAlignVertical='top' />
       <CustomEditableTextInput style={styles.dark} label="Price" value={productPrice} />
       
       <Text>{productImages}</Text>
