@@ -71,7 +71,7 @@ async function getIsAnyUserLoggedInOnce() {
   }
 }
 
-removeItem('user');
+// removeItem('user');
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
