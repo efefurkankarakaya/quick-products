@@ -8,17 +8,17 @@ import {getItem} from '../../utils/databaseHelpers';
 import {getProducts} from '../../controllers';
 
 import {
-  CustomItem,
-  CustomRoundedButton,
-  CustomEditableText,
+  CustomCard,
   CustomEditableTextInput,
+  CustomImage,
+  CustomProduct,
+  CustomRoundedButton,
 } from '../../components';
 
-import styles from './FormDetail.style';
-import {Question, Plus} from '../../assets';
+import {parseStringToArray} from '../../utils/arrayHelpers';
 
-// Get products
-import FormDetailsData from '../../mock/product_data';
+import styles from './FormDetail.style';
+import {Question, Plus, Cross} from '../../assets';
 
 // Load products
 async function loadProducts(formId) {
@@ -32,6 +32,9 @@ async function loadProducts(formId) {
 }
 
 function FormDetail({navigation}) {
+  console.log('RENDER FORM DETAIL');
+  // WHY IS THAT CALLED TWICE????????????????????????
+  // WHY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   const dispatch = useDispatch();
 
   // Get formId for load products.
@@ -51,7 +54,10 @@ function FormDetail({navigation}) {
     loadProducts(formId).then(products => {
       setProducts(products);
     });
+    console.log('MOUNTED');
   }, []);
+
+  const onDeleteProductPress = () => {};
 
   // Create Product onPress Handler
   const onCreateProductPress = () => {
@@ -75,27 +81,41 @@ function FormDetail({navigation}) {
   };
 
   // FlatList Functions
-  const renderProduct = ({item: product}) => (
-    <CustomItem
-      title={product.name}
-      subText={product.description}
-      onPress={() => onProductPress(product)}
-      image={Question}
-    />
-  );
+  const renderProduct = ({item: product}) => {
+    const parsedProductImages = parseStringToArray(product.images);
+    return (
+      <CustomCard
+        dynamicStyle={styles.productCard}
+        source={parsedProductImages[0]}
+        title={product.name}
+        description={product.description}
+        onPress={() => onProductPress(product)}
+      />
+    );
+  };
   const extractKey = (item, _) => item.pid;
 
   return (
     <View style={styles.container}>
-      <CustomEditableTextInput label="Search" />
-      <CustomEditableText value="Freelance" />
-      <CustomEditableText value="Lorem ipsum dolor sit amet." />
+      <View style={styles.topContainer}>
+        <CustomEditableTextInput
+          dynamicStyle={styles.search}
+          dynamicLabelStyle={styles.searchLabel}
+          placeholder="Search"
+        />
+        <CustomImage dynamicStyle={styles.layout} source={Plus} />
+      </View>
       <FlatList
+        style={styles.flatList}
+        contentContainerStyle={styles.flatListContainer}
         keyExtractor={extractKey}
         data={products}
         renderItem={renderProduct}
       />
-      <CustomRoundedButton icon={Plus} onPress={onCreateProductPress} />
+      <View style={styles.buttonContainer}>
+        <CustomRoundedButton icon={Cross} onPress={onDeleteProductPress} />
+        <CustomRoundedButton icon={Plus} onPress={onCreateProductPress} />
+      </View>
     </View>
   );
 }
