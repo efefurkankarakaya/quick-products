@@ -9,4 +9,15 @@ export default StyleSheet.create({
     width: 50,
     height: 50,
   },
+  buttonContainer: {
+    marginTop: 15,
+    backgroundColor: 'cyan',
+    alignItems: 'center',
+  },
+  addImage: {
+    width: '100%',
+  },
+  save: {
+    width: '100%',
+  },
 });
