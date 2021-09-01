@@ -5,13 +5,11 @@ import {useSelector} from 'react-redux';
 
 import {CustomEditableTextInput, CustomImageList} from '../../components';
 
+import {parseStringToArray} from '../../utils/arrayHelpers';
+
 import styles from './ProductDetail.style';
 
 function ProductDetail() {
-  const parseStringToArray = string => {
-    return Array.from(JSON.parse(string));
-  };
-
   // TODO: Store active data with Redux
   // TODO: or add a save button
   const {productName, productDescription, productPrice, productImages} =
