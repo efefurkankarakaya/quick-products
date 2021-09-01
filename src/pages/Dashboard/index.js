@@ -9,29 +9,36 @@ import Dialog from 'react-native-dialog';
 
 import {sendCreateFormRequest, sendGetFormsRequest} from '../../controllers/';
 
+import {logError, logOutput} from '../../utils/logHelpers';
+
 import styles from './Dashboard.style';
 import {CustomItem, CustomRoundedButton} from '../../components';
 import {Plus, Question} from '../../assets';
 
 async function createForm(formTitle) {
+  const scopes = ['Dashboard', 'createForm'];
   try {
     const {appKey} = await getItem('user');
     return await sendCreateFormRequest(appKey, formTitle);
   } catch (err) {
-    console.error(err);
+    logError(scopes, err.message);
   }
 }
 
 async function loadForms() {
+  const scopes = ['Dashboard', 'loadForms'];
   try {
     const {appKey} = await getItem('user');
     return await sendGetFormsRequest(appKey);
   } catch (err) {
-    console.error(err);
+    logError(scopes, err.message);
   }
 }
 
 function Dashboard({navigation}) {
+  // TODO: Warning: Can't perform a React state update on an unmounted component.
+  // This is a no-op, but it indicates a memory leak in your application.
+  // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
   const dispatch = useDispatch();
 
   const [forms, setForms] = useState([]); // Form Array
@@ -81,7 +88,8 @@ function Dashboard({navigation}) {
 
   // Form Item onPress Handler
   const onFormPress = (formId, formTitle) => {
-    console.log(formId, formTitle);
+    const scopes = ['Dashboard', 'onFormPress'];
+    logOutput(scopes, formId, formTitle);
     const activeFormData = {
       formId,
       formTitle,

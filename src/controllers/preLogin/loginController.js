@@ -1,15 +1,19 @@
 import axios from 'axios';
+import {logError, logOutput} from '../../utils/logHelpers';
 import {convertJSONToQueryString} from '../../utils/objectHelpers';
-
-// Accept: Query String
-const endpoint = 'https://m-baydogan.jotform.dev/intern-api/user/login';
 
 /**
  * @param {object} loginData - Data to be sent to the server.
  * @returns {object} - Returns the user's login status and appKey.
  */
 async function sendLoginRequest(loginData) {
-  console.log('Login Data: ' + JSON.stringify(loginData)); // TODO: Remove this line.
+  const scopes = ['loginController', 'sendLoginRequest'];
+  // Accept: Query String
+  const endpoint = 'https://m-baydogan.jotform.dev/intern-api/user/login';
+
+  const loginDataMessage = 'Login Data: ' + JSON.stringify(loginData); // TODO: Remove this line.
+  logOutput(scopes, loginDataMessage);
+
   // The loginData to be posted as query string
   loginData = convertJSONToQueryString(loginData);
 
@@ -29,7 +33,8 @@ async function sendLoginRequest(loginData) {
     const {data} = await axios.post(endpoint, loginData, config);
     const {responseCode, content} = data;
     if (responseCode != 200) {
-      console.error('Connection error: ' + responseCode);
+      const message = 'Network error: ' + responseCode;
+      logError(scopes, message);
       return loginStatus;
     }
 
@@ -39,7 +44,8 @@ async function sendLoginRequest(loginData) {
     // then credentials are invalid.
     const isNotLoginSuccessful = Object.keys(userInfo).length < 1;
     if (isNotLoginSuccessful) {
-      console.log('Username or password is invalid.');
+      const message = 'Username or password is invalid.';
+      logOutput(scopes, message);
       return loginStatus;
     }
     // If not error occurs within informations, then credentials are valid.
@@ -47,7 +53,7 @@ async function sendLoginRequest(loginData) {
     loginStatus.appKey = userInfo.appKey; // TODO: \?/ Should its existence be checked?
     return loginStatus;
   } catch (err) {
-    console.error(err);
+    logError(scopes, err.message);
   }
 }
 

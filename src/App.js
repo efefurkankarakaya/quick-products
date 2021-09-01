@@ -9,6 +9,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {setItem, getItem, removeItem} from './utils/databaseHelpers';
 
+import {logOutput, logError} from './utils/logHelpers';
+
 import {
   Login,
   Register,
@@ -57,12 +59,15 @@ const QuickFormsStackScreens = () => {
 
 // TODO: Fix null object error while no data is present in the database
 async function getIsAnyUserLoggedInOnce() {
+  const scopes = ['App', 'getIsAnyUserLoggedInOnce'];
   try {
     const {isLoggedIn, appKey} = await getItem('user');
-    console.log('AND: ' + isLoggedIn && appKey);
-    return isLoggedIn && appKey;
+    const isLoginExistAndValid = isLoggedIn && appKey;
+    const message = 'isLoggedIn && appKey: ' + isLoginExistAndValid;
+    logOutput(scopes, message);
+    return isLoginExistAndValid;
   } catch (err) {
-    console.error(err);
+    logError(scopes, err.message);
   }
 }
 

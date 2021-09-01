@@ -5,7 +5,9 @@ import {useSelector, useDispatch} from 'react-redux';
 import {updateActiveProduct} from '../../redux/reducers/productReducer';
 import {getItem} from '../../utils/databaseHelpers';
 
-import {sendDeleteFormRequest, getProducts} from '../../controllers';
+import {sendDeleteFormRequest, sendGetProductsRequest} from '../../controllers';
+
+import {logError, logOutput} from '../../utils/logHelpers';
 
 import {
   CustomCard,
@@ -22,22 +24,24 @@ import {Question, Plus, Cross} from '../../assets';
 
 // Load products
 async function loadProducts(formId) {
+  const scopes = ['FormDetail', 'loadProducts'];
   try {
     const {appKey} = await getItem('user');
-    console.log('appKey: ' + appKey);
-    return await getProducts(appKey, formId);
+    logOutput(['FormDetail', 'loadProducts(formId)'], `appKey: ${appKey}`);
+    return await sendGetProductsRequest(appKey, formId);
   } catch (err) {
-    console.error(err);
+    logError(scopes, err.message);
   }
 }
 
 async function deleteForm(formId) {
+  const scopes = ['FormDetail', 'deleteForm'];
   try {
     const {appKey} = await getItem('user');
-    console.log('appKey: ' + appKey);
+    logOutput(scopes, `appKey: ${appKey}`);
     return await sendDeleteFormRequest(appKey, formId);
   } catch (err) {
-    console.error(err);
+    logError(scopes, err.message);
   }
 }
 
@@ -49,7 +53,7 @@ function FormDetail({navigation}) {
   const {formId, formTitle} = useSelector(({form}) => form);
   const [products, setProducts] = useState([]); // Products Array
 
-  console.log(formId, formTitle);
+  logOutput(['FormDetail'], formId, formTitle);
   // Load products when component is mounted.
   useEffect(() => {
     // Set header title as shown form title.
@@ -58,20 +62,26 @@ function FormDetail({navigation}) {
     });
 
     // Set products when is loaded.
+    // -> causes component rendering twice.
     loadProducts(formId).then(products => {
       setProducts(products);
     });
   }, []);
 
   const onDeleteProductPress = () => {
-    deleteForm(formId).then(status =>
-      console.log(status ? 'Deletion success.' : 'Deletion failed.'),
-    );
+    deleteForm(formId).then(status => {
+      const output = status ? 'Deletion success.' : 'Deletion failed.';
+      logOutput(
+        ['FormDetail', 'onDeleteProductPress()', 'deleteForm(formId)'],
+        output,
+      );
+    });
     navigation.navigate('Quick Forms', {screen: 'Dashboard'});
   };
 
   // Create Product onPress Handler
   const onCreateProductPress = () => {
+    const scopes = ['FormDetail', 'onCreateProductPress'];
     console.log('Create product');
     // TODO: Create Product Function
   };

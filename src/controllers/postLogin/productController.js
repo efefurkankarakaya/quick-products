@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {logError, logOutput} from '../../utils/logHelpers';
 
 // https://app.swaggerhub.com/apis/BaydoganMirac/JotFormMobilAppApi/1.0.0#/
 // Parameters can't be passed as headers, endpoint needs to be accessed with absolute path.
@@ -6,7 +7,8 @@ const mainURI = 'https://m-baydogan.jotform.dev/intern-api/product';
 const getEndPoint = (appKey, formId) => `${mainURI}/${appKey}/${formId}`;
 
 // TODO: JSDocs
-async function getProducts(appKey, formId) {
+async function sendGetProductsRequest(appKey, formId) {
+  const scopes = ['productController', 'sendGetProductsRequest'];
   const endpoint = getEndPoint(appKey, formId);
 
   const config = {
@@ -18,17 +20,21 @@ async function getProducts(appKey, formId) {
     const {data} = await axios.get(endpoint, config);
     const {content, responseCode} = data;
     if (responseCode !== 200) {
-      console.error('Network error: ' + responseCode);
+      const message = 'Network error: ' + responseCode;
+      logError(scopes, message);
       return [];
     }
     if (!Array.isArray(content)) {
-      console.log('No products found');
+      const message = 'No products found.';
+      logOutput(scopes, message);
       return [];
     }
     return content;
   } catch (err) {
-    console.error(err);
+    logError(scopes, err.message);
   }
 }
 
-export {getProducts};
+async function sendCreateProductRequest() {}
+
+export {sendGetProductsRequest};
