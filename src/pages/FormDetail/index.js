@@ -117,8 +117,9 @@ function FormDetail({navigation}) {
         <CustomImage dynamicStyle={styles.layout} source={Plus} />
       </View>
       <FlatList
+        numColumns={2}
         style={styles.flatList}
-        contentContainerStyle={styles.flatListContainer}
+        columnWrapperStyle={styles.flatListWrapper}
         keyExtractor={extractKey}
         data={products}
         renderItem={renderProduct}
