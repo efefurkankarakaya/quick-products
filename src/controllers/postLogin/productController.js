@@ -36,6 +36,11 @@ async function sendGetProductsRequest(appKey, formId) {
 // TODO: JSdocs
 async function sendCreateProductRequest(appKey, formId) {
   const scopes = ['productController', 'sendCreateProductRequest'];
+  // update product -> add item to array
+}
+
+async function sendUpdateProductRequest(appKey, formId) {
+  const scopes = ['productController', 'sendUpdateProductRequest'];
   const endpoint = `https://m-baydogan.jotform.dev/intern-api/product/${appKey}/${formId}`;
 
   const config = {
@@ -97,4 +102,14 @@ async function sendCreateProductRequest(appKey, formId) {
   }
 }
 
-export {sendCreateProductRequest, sendGetProductsRequest};
+async function sendDeleteProductRequest(appKey, formId) {
+  const scopes = ['productController', 'sendDeleteProductRequest'];
+  // update product -> remove item from array
+}
+
+export {
+  sendCreateProductRequest,
+  sendDeleteProductRequest,
+  sendGetProductsRequest,
+  sendUpdateProductRequest,
+};
