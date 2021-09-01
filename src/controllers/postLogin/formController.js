@@ -60,8 +60,6 @@ async function sendCreateFormRequest(appKey, formTitle) {
 }
 
 // TODO: Add JSdocs
-// TODO: Connect with Dashboard
-// TODO: Fix the bug that the deleted forms are still getting listed 'cause of they're not purged.
 async function sendDeleteFormRequest(appKey, formId) {
   const endpoint = `https://api.jotform.com/form/${formId}?apiKey=${appKey}`;
 

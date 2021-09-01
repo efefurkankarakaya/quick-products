@@ -5,7 +5,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {updateActiveProduct} from '../../redux/reducers/productReducer';
 import {getItem} from '../../utils/databaseHelpers';
 
-import {getProducts} from '../../controllers';
+import {sendDeleteFormRequest, getProducts} from '../../controllers';
 
 import {
   CustomCard,
@@ -31,11 +31,24 @@ async function loadProducts(formId) {
   }
 }
 
+async function deleteForm(formId) {
+  try {
+    const {appKey} = await getItem('user');
+    console.log('appKey: ' + appKey);
+    return await sendDeleteFormRequest(appKey, formId);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 function FormDetail({navigation}) {
+<<<<<<< HEAD
   console.log('RENDER FORM DETAIL');
   // WHY IS THAT CALLED TWICE????????????????????????
   // WHY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // TODO: FIND WHY?!?!?!?!?!????????!!!!!!!
+=======
+>>>>>>> master
   const dispatch = useDispatch();
 
   // Get formId for load products.
@@ -55,10 +68,14 @@ function FormDetail({navigation}) {
     loadProducts(formId).then(products => {
       setProducts(products);
     });
-    console.log('MOUNTED');
   }, []);
 
-  const onDeleteProductPress = () => {};
+  const onDeleteProductPress = () => {
+    deleteForm(formId).then(status =>
+      console.log(status ? 'Deletion success.' : 'Deletion failed.'),
+    );
+    navigation.navigate('Quick Forms', {screen: 'Dashboard'});
+  };
 
   // Create Product onPress Handler
   const onCreateProductPress = () => {
@@ -107,8 +124,9 @@ function FormDetail({navigation}) {
         <CustomImage dynamicStyle={styles.layout} source={Something} />
       </View>
       <FlatList
+        numColumns={2}
         style={styles.flatList}
-        contentContainerStyle={styles.flatListContainer}
+        columnWrapperStyle={styles.flatListWrapper}
         keyExtractor={extractKey}
         data={products}
         renderItem={renderProduct}

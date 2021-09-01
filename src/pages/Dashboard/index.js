@@ -42,7 +42,7 @@ function Dashboard({navigation}) {
   useEffect(() => {
     // TODO: Add swipe refresh
     loadForms().then(forms => setForms(forms));
-  }, []);
+  }, [forms]);
 
   // Clears the dialog input after action.
   const clearDialogInput = () => setFormTitleInputText('');

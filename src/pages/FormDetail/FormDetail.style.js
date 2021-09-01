@@ -21,8 +21,9 @@ export default StyleSheet.create({
   flatList: {
     backgroundColor: 'gray',
   },
-  flatListContainer: {
-    flexDirection: 'row',
+  flatListWrapper: {
+    backgroundColor: 'darkblue',
+    marginBottom: 10,
     justifyContent: 'space-between',
   },
   productCard: {},
