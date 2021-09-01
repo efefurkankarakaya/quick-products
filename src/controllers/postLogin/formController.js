@@ -30,6 +30,8 @@ async function sendGetFormsRequest(appKey) {
     );
     return activeForms;
   } catch (err) {
+    const {message} = err.response.data;
+    logError(scopes, message);
     logError(scopes, err.message);
   }
 }

@@ -1,21 +1,19 @@
 import axios from 'axios';
+import {parseStringToArray} from '../../utils/arrayHelpers';
+import {convertJSONToQueryString} from '../../utils/objectHelpers';
 import {logError, logOutput} from '../../utils/logHelpers';
-
-// https://app.swaggerhub.com/apis/BaydoganMirac/JotFormMobilAppApi/1.0.0#/
-// Parameters can't be passed as headers, endpoint needs to be accessed with absolute path.
-const mainURI = 'https://m-baydogan.jotform.dev/intern-api/product';
-const getEndPoint = (appKey, formId) => `${mainURI}/${appKey}/${formId}`;
 
 // TODO: JSDocs
 async function sendGetProductsRequest(appKey, formId) {
   const scopes = ['productController', 'sendGetProductsRequest'];
-  const endpoint = getEndPoint(appKey, formId);
+  const endpoint = `https://m-baydogan.jotform.dev/intern-api/product/${appKey}/${formId}`;
 
   const config = {
     headers: {
       Accept: 'application/json',
     },
   };
+
   try {
     const {data} = await axios.get(endpoint, config);
     const {content, responseCode} = data;
@@ -35,6 +33,68 @@ async function sendGetProductsRequest(appKey, formId) {
   }
 }
 
-async function sendCreateProductRequest() {}
+// TODO: JSdocs
+async function sendCreateProductRequest(appKey, formId) {
+  const scopes = ['productController', 'sendCreateProductRequest'];
+  const endpoint = `https://m-baydogan.jotform.dev/intern-api/product/${appKey}/${formId}`;
 
-export {sendGetProductsRequest};
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  };
+
+  // Don't forget to parse Image Array
+  const products = await sendGetProductsRequest(appKey, formId);
+  const product = {
+    cid: '',
+    connectedCategories: '[]',
+    connectedProducts: '[]',
+    corder: '',
+    customPrice: '',
+    customPriceSource: '0',
+    description: '2112421421213',
+    fitImageToCanvas: 'Yes',
+    hasExpandedOption: '',
+    hasQuantity: '',
+    hasSpecialPricing: '',
+    icon: '',
+    images:
+      '["https://www.jotform.com/uploads/baydoganmirac/form_files/test1.png","https://www.jotform.com/uploads/baydoganmirac/form_files/Kapak.jpg"]',
+    isLowStockAlertEnabled: 'No',
+    isStockControlEnabled: 'No',
+    lowStockValue: '',
+    name: 'YENİ ÜRÜN',
+    options: '[]',
+    period: 'Monthly',
+    pid: '1001',
+    price: '123',
+    recurringtimes: 'No Limit',
+    required: '',
+    selected: '',
+    setupfee: '',
+    showSubtotal: '0',
+    stockQuantityAmount: '',
+    trial: '',
+  };
+  products.push(product);
+  const productsData = {
+    products: convertJSONToQueryString(JSON.stringify(product)),
+  };
+
+  try {
+    const {data} = await axios.post(endpoint, productsData, config);
+    logOutput(scopes, data);
+    const {content, responseCode} = data;
+    if (responseCode !== 200) {
+      const message = 'Network error: ' + responseCode;
+      logError(scopes, message);
+      return [];
+    }
+    return content;
+  } catch (err) {
+    logError(scopes, err.message);
+  }
+}
+
+export {sendCreateProductRequest, sendGetProductsRequest};

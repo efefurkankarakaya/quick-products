@@ -9,4 +9,7 @@ export {
 } from './postLogin/formController';
 
 // Product Controller
-export {sendGetProductsRequest} from './postLogin/productController';
+export {
+  sendCreateProductRequest,
+  sendGetProductsRequest,
+} from './postLogin/productController';

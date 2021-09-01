@@ -5,7 +5,11 @@ import {useSelector, useDispatch} from 'react-redux';
 import {updateActiveProduct} from '../../redux/reducers/productReducer';
 import {getItem} from '../../utils/databaseHelpers';
 
-import {sendDeleteFormRequest, sendGetProductsRequest} from '../../controllers';
+import {
+  sendCreateProductRequest,
+  sendDeleteFormRequest,
+  sendGetProductsRequest,
+} from '../../controllers';
 
 import {logError, logOutput} from '../../utils/logHelpers';
 
@@ -40,6 +44,17 @@ async function deleteForm(formId) {
     const {appKey} = await getItem('user');
     logOutput(scopes, `appKey: ${appKey}`);
     return await sendDeleteFormRequest(appKey, formId);
+  } catch (err) {
+    logError(scopes, err.message);
+  }
+}
+
+async function createProduct(formId, product) {
+  const scopes = ['FormDetail', 'createProduct'];
+  try {
+    const {appKey} = await getItem('user');
+    logOutput(scopes, `appKey: ${appKey}`);
+    return await sendCreateProductRequest(appKey, formId);
   } catch (err) {
     logError(scopes, err.message);
   }
@@ -82,8 +97,14 @@ function FormDetail({navigation}) {
   // Create Product onPress Handler
   const onCreateProductPress = () => {
     const scopes = ['FormDetail', 'onCreateProductPress'];
-    console.log('Create product');
     // TODO: Create Product Function
+    // createProduct(formId)
+    //   .then(product => {
+    //     logOutput(scopes, product);
+    //   })
+    //   .catch(err => {
+    //     logError(scopes, err.message);
+    //   });
   };
 
   // Product onPress Handler
