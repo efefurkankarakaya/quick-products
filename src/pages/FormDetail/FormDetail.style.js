@@ -53,6 +53,5 @@ export default StyleSheet.create({
     position: 'absolute',
     display:'flex',
     height: 55,
-    
   },
 });

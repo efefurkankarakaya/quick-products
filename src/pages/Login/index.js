@@ -71,7 +71,7 @@ function Login({navigation}) {
           onBlur={handleBlur('username')}
           error={errors.username}
           touched={touched.username}
-          textAlignHorizontal='center' 
+          textAlign='left' 
         />
       </View>
       <View style={styles.wrapper}>
@@ -90,7 +90,8 @@ function Login({navigation}) {
           error={errors.password}
           touched={touched.password}
           ref={passwordInput}
-          textAlignHorizontal='center'
+          textAlign='left'
+          
         />
       </View>
       <View style={styles.singInButton}>
