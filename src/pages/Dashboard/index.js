@@ -13,7 +13,7 @@ import {logError, logOutput} from '../../utils/logHelpers';
 
 import styles from './Dashboard.style';
 import {CustomItem, CustomRoundedButton} from '../../components';
-import {Plus, Question} from '../../assets';
+import {Doc, AddButton} from '../../assets';
 
 async function createForm(formTitle) {
   const scopes = ['Dashboard', 'createForm'];
@@ -106,7 +106,7 @@ function Dashboard({navigation}) {
       title={form.title}
       subText={'Last change: ' + form.updated_at}
       onPress={() => onFormPress(form.id, form.title)}
-      image={Question}
+      image={Doc}
     />
   );
   const extractKey = (item, _) => item.id;
@@ -117,7 +117,7 @@ function Dashboard({navigation}) {
         <Dialog.Container visible={isVisible}>
           <Dialog.Title>Form Creation</Dialog.Title>
           <Dialog.Description>
-            Give your form a unique title.
+            Give your form a title.
           </Dialog.Description>
           <Dialog.Button label="Cancel" onPress={handleCancel} />
           <Dialog.Input
@@ -132,7 +132,7 @@ function Dashboard({navigation}) {
         data={forms}
         renderItem={renderForm}
       />
-      <CustomRoundedButton icon={Plus} onPress={onCreateFormPress} />
+      <CustomRoundedButton icon={AddButton} onPress={onCreateFormPress} />
     </View>
   );
 }

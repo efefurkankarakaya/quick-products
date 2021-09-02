@@ -9,15 +9,13 @@ export default StyleSheet.create({
     width: 50,
     height: 50,
   },
-  buttonContainer: {
-    marginTop: 15,
-    backgroundColor: 'cyan',
-    alignItems: 'center',
+  dark: {
+    backgroundColor: '#CAC8C8',
+    borderRadius: 5,
   },
-  addImage: {
-    width: '100%',
-  },
-  save: {
-    width: '100%',
+  descriptionHeight: {
+    height: 90,
+    backgroundColor: '#CAC8C8',
+    borderRadius: 5,
   },
 });

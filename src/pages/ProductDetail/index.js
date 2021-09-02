@@ -141,21 +141,24 @@ function ProductDetail() {
   return (
     <View style={styles.container}>
       <CustomEditableTextInput
+        style={styles.dark}
         label="Name"
         value={productNameState}
         onChangeText={value => setProductNameState(value)}
       />
       <CustomEditableTextInput
+        style={(styles.dark, styles.descriptionHeight)}
+        textAlignVertical="top"
         label="Description"
         value={productDescriptionState}
         onChangeText={value => setProductDescriptionState(value)}
       />
       <CustomEditableTextInput
+        style={styles.dark}
         label="Price"
         value={productPriceState}
         onChangeText={value => setProductPriceState(value)}
       />
-      <Text>{productImages}</Text>
       <CustomImageList
         label="Images"
         keyExtractor={extractKey}

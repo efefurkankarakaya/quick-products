@@ -10,6 +10,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#0A1551',
     marginBottom: 30,
+    
   },
   label: {
     fontSize: 14,
