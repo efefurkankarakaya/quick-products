@@ -14,7 +14,8 @@ export default StyleSheet.create({
     bottom: 30,
     fontSize: 25,
     marginBottom: 15,
-    paddingTop: 80,
+    paddingTop: 85,
+    bottom:55,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
@@ -49,6 +50,7 @@ export default StyleSheet.create({
   },
 
   forgotPassword: {
+    
     //
   },
 

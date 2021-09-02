@@ -140,44 +140,47 @@ function ProductDetail() {
 
   return (
     <View style={styles.container}>
-      <CustomEditableTextInput
-        style={styles.dark}
-        label="Name"
-        value={productNameState}
-        onChangeText={value => setProductNameState(value)}
-      />
-      <CustomEditableTextInput
-        style={(styles.dark, styles.descriptionHeight)}
-        textAlignVertical="top"
-        label="Description"
-        value={productDescriptionState}
-        onChangeText={value => setProductDescriptionState(value)}
-      />
-      <CustomEditableTextInput
-        style={styles.dark}
-        label="Price"
-        value={productPriceState}
-        onChangeText={value => setProductPriceState(value)}
-      />
-      <CustomImageList
-        label="Images"
-        keyExtractor={extractKey}
-        data={parsedProductImages}
-        renderItem={renderImage}
-        horizontal={true}
-        numberOfLines={2}
-      />
-      <View style={styles.buttonContainer}>
-        <CustomButton
-          dynamicStyle={styles.addImage}
-          label="ADD IMAGE"
-          onPress={onAddImagePress}
+      <View style={styles.wrapper}>
+        <CustomEditableTextInput
+          style={styles.dark}
+          label="Name"
+          value={productNameState}
+          onChangeText={value => setProductNameState(value)}
         />
-        <CustomButton
-          dynamicStyle={styles.save}
-          label="SAVE"
-          onPress={onSavePress}
+        <CustomEditableTextInput
+          style={(styles.dark, styles.descriptionHeight)}
+          textAlignVertical="top"
+          label="Description"
+          value={productDescriptionState}
+          onChangeText={value => setProductDescriptionState(value)}
         />
+        <CustomEditableTextInput
+          style={styles.dark}
+          label="Price"
+          value={productPriceState}
+          onChangeText={value => setProductPriceState(value)}
+          keyboardType='numeric'
+        />
+        <CustomImageList
+          label="Images"
+          keyExtractor={extractKey}
+          data={productImagesState}
+          renderItem={renderImage}
+          horizontal={true}
+          numberOfLines={2}
+        />
+        <View style={styles.buttonContainer}>
+          <CustomButton
+            dynamicStyle={styles.addImage}
+            label="ADD IMAGE"
+            onPress={onAddImagePress}
+          />
+          <CustomButton
+            dynamicStyle={styles.save}
+            label="SAVE"
+            onPress={onSavePress}
+          />
+        </View>
       </View>
     </View>
   );
