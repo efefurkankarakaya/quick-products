@@ -12,6 +12,7 @@ import {sendLoginRequest} from '../../controllers/';
 import {CustomTextInput, CustomButton, CustomText} from '../../components';
 import styles from './Login.styles.js';
 import Logo from '../../assets/logo.png';
+import {API_KEY} from '../../../.env.js';
 
 // Validations
 const loginSchema = Yup.object().shape({
@@ -42,7 +43,7 @@ function Login({navigation}) {
       sendLoginRequest(data).then(({appKey, isLoggedIn}) => {
         if (isLoggedIn) {
           console.log(appKey);
-          appKey = 'b0c04bfc671dc8cf452946bbe1c36591'; // TODO: Change to appKey
+          appKey = API_KEY; // TODO: Change to appKey
           setItem('user', {isLoggedIn, appKey});
           dispatch(logIn({isLoggedIn}));
           navigation.navigate('Quick Forms', {screen: 'Dashboard'});
