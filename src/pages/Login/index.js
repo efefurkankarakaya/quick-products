@@ -71,7 +71,8 @@ function Login({navigation}) {
           onBlur={handleBlur('username')}
           error={errors.username}
           touched={touched.username}
-          textAlign='left' 
+          textAlign='left'
+          
         />
       </View>
       <View style={styles.wrapper}>
@@ -92,10 +93,11 @@ function Login({navigation}) {
           ref={passwordInput}
           textAlign='left'
           
+          
         />
       </View>
       <View style={styles.singInButton}>
-        <CustomButton label="SIGN IN" onPress={() => handleSubmit()} />
+        <CustomButton dynamicStyle={{width:279,left:2}} label="SIGN IN" onPress={() => handleSubmit()} />
       </View>
 
       <CustomText

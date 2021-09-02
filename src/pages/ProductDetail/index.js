@@ -214,6 +214,11 @@ function ProductDetail() {
             label="SAVE"
             onPress={onSavePress}
           />
+          <CustomButton
+            dynamicStyle={{backgroundColor:'red'}}
+            label="Delete"
+          />
+          
         </View>
       </View>
     </View>

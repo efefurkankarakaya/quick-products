@@ -9,15 +9,21 @@ export default StyleSheet.create({
     margin: 20,
   },
   image: {
-    width: 93,
+    alignItems: 'stretch',
+    flex: 2,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    width: 121,
     height: 125,
   },
   dark: {
+    borderColor: 'rgba(0, 0, 0, 0.5)',
     backgroundColor: '#fff',
     borderRadius: 5,
     borderWidth: 1,
   },
   descriptionHeight: {
+    borderColor: 'rgba(0, 0, 0, 0.5)',
     height: 90,
     backgroundColor: '#fff',
     borderRadius: 5,

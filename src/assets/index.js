@@ -6,3 +6,4 @@ export {default as Doc} from './Doc.png';
 export {default as TrashBox} from './TrashBox.png';
 export {default as Something} from './Something.png';
 export {default as Default} from './default.png';
+export {default as csv} from './csv.png';
