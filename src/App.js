@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator} from 'react-native';
+import {ActivityIndicator, LogBox} from 'react-native';
+LogBox.ignoreAllLogs();
 
 import {store} from './redux/store';
 import {Provider} from 'react-redux';

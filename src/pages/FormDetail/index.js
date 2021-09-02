@@ -31,7 +31,7 @@ async function loadProducts(formId) {
   const scopes = ['FormDetail', 'loadProducts'];
   try {
     const {appKey} = await getItem('user');
-    logOutput(['FormDetail', 'loadProducts(formId)'], `appKey: ${appKey}`);
+    logOutput(['FormDetail', 'loadProducts'], `appKey: ${appKey}`);
     return await sendGetProductsRequest(appKey, formId);
   } catch (err) {
     logError(scopes, err.message);
@@ -49,17 +49,6 @@ async function deleteForm(formId) {
   }
 }
 
-async function createProduct(formId, product) {
-  const scopes = ['FormDetail', 'createProduct'];
-  try {
-    const {appKey} = await getItem('user');
-    logOutput(scopes, `appKey: ${appKey}`);
-    return await sendCreateProductRequest(appKey, formId);
-  } catch (err) {
-    logError(scopes, err.message);
-  }
-}
-
 function FormDetail({navigation}) {
   const dispatch = useDispatch();
 
@@ -71,13 +60,16 @@ function FormDetail({navigation}) {
   logOutput(['FormDetail'], formId, formTitle);
   // Load products when component is mounted.
   useEffect(() => {
+    // TODO: Warning: Can't perform a React state update on an unmounted component.
+    // This is a no-op, but it indicates a memory leak in your application.
+    // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
+
     // Set header title as shown form title.
     navigation.setOptions({
       title: formTitle,
     });
 
     // Set products when is loaded.
-    // -> causes component rendering twice.
     loadProducts(formId).then(products => {
       setProducts(products);
     });
@@ -97,14 +89,15 @@ function FormDetail({navigation}) {
   // Create Product onPress Handler
   const onCreateProductPress = () => {
     const scopes = ['FormDetail', 'onCreateProductPress'];
-    // TODO: Create Product Function
-    // createProduct(formId)
-    //   .then(product => {
-    //     logOutput(scopes, product);
-    //   })
-    //   .catch(err => {
-    //     logError(scopes, err.message);
-    //   });
+    const activeProductData = {
+      productId: -1,
+      productName: '',
+      productDescription: '',
+      productPrice: 0,
+      productImages: '[]',
+    };
+    dispatch(updateActiveProduct(activeProductData));
+    navigation.navigate('Quick Forms', {screen: 'Product Detail'});
   };
 
   // Product onPress Handler

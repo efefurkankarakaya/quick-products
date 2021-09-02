@@ -6,6 +6,8 @@ import {updateActiveProduct} from '../../redux/reducers/productReducer';
 
 import {launchImageLibrary} from 'react-native-image-picker';
 
+import {getItem} from '../../utils/databaseHelpers';
+
 import {
   CustomButton,
   CustomEditableTextInput,
@@ -16,13 +18,43 @@ import {logOutput, logError} from '../../utils/logHelpers';
 import {parseStringToArray} from '../../utils/arrayHelpers';
 
 import styles from './ProductDetail.style';
+import {
+  sendCreateProductRequest,
+  sendUpdateProductRequest,
+} from '../../controllers';
+
+async function createProduct(formId, product) {
+  const scopes = ['ProductDetail', 'createProduct'];
+  try {
+    const {appKey} = await getItem('user');
+    logOutput(scopes, `appKey: ${appKey}`);
+    return await sendCreateProductRequest(appKey, formId, product);
+  } catch (err) {
+    logError(scopes, err.message);
+  }
+}
+
+async function updateProduct(formId, product) {
+  const scopes = ['ProductDetail', 'updateProduct'];
+  try {
+    const {appKey} = await getItem('user');
+    logOutput(scopes, `appKey: ${appKey}`);
+    return await sendUpdateProductRequest(appKey, formId, product);
+  } catch (err) {
+    logError(scopes, err.message);
+  }
+}
 
 function ProductDetail() {
   const dispatch = useDispatch();
-  // TODO: Store active data with Redux
-  // TODO: or add a save button
-  const {productName, productDescription, productPrice, productImages} =
-    useSelector(({product}) => product);
+  const {formId} = useSelector(({form}) => form);
+  const {
+    productId,
+    productName,
+    productDescription,
+    productPrice,
+    productImages,
+  } = useSelector(({product}) => product);
   const parsedProductImages = parseStringToArray(productImages);
 
   const [productNameState, setProductNameState] = useState(productName);
@@ -45,6 +77,24 @@ function ProductDetail() {
 
   const onSavePress = () => {
     const scope = ['ProductDetail', 'onSavePress'];
+    const product = {
+      pid: -1,
+      name: productNameState,
+      description: productDescriptionState,
+      price: productPriceState,
+      images: productImagesState,
+    };
+    logOutput(scope, productId);
+    if (productId === -1) {
+      createProduct(formId, product).then(res => {
+        logOutput(scope, JSON.stringify(res));
+      });
+    } else {
+      product.pid = productId;
+      updateProduct(formId, product).then(res => {
+        logOutput(scope, JSON.stringify(res));
+      });
+    }
     dispatch(
       updateActiveProduct({
         productName: productNameState,
