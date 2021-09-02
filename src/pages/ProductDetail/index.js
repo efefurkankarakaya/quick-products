@@ -21,6 +21,7 @@ import styles from './ProductDetail.style';
 import {
   sendCreateProductRequest,
   sendUpdateProductRequest,
+  sendUploadImageRequest,
 } from '../../controllers';
 
 async function createProduct(formId, product) {
@@ -40,6 +41,17 @@ async function updateProduct(formId, product) {
     const {appKey} = await getItem('user');
     logOutput(scopes, `appKey: ${appKey}`);
     return await sendUpdateProductRequest(appKey, formId, product);
+  } catch (err) {
+    logError(scopes, err.message);
+  }
+}
+
+async function uploadImage(formId, productId, imageURI) {
+  const scopes = ['ProductDetail', 'uploadImage'];
+  try {
+    const {appKey} = await getItem('user');
+    logOutput(scopes, `appKey: ${appKey}`);
+    return await sendUploadImageRequest(appKey, formId, productId, imageURI);
   } catch (err) {
     logError(scopes, err.message);
   }
@@ -66,26 +78,32 @@ function ProductDetail() {
   const onAddImagePress = () => {
     const options = {
       mediaType: 'photo',
+      noData: true,
     };
-    launchImageLibrary(options, ({assets}) => {
+    launchImageLibrary(options, res => {
       const scope = ['ProdutDetail', 'onAddImagePress', 'launchImageLibrary'];
       const message = 'Image selected';
-      logOutput(scope, message);
-      logOutput(scope, JSON.stringify(assets));
+      // const {uri} = assets;
+      // logOutput(scope, message);
+      // logOutput(scope, JSON.stringify(assets));
+      logOutput(scope, JSON.stringify(res));
+      logOutput(scope, productId);
+      const _productId = productId < 1000 ? productId + 1000 + 1000 : productId;
+      uploadImage(formId, _productId, res);
     });
   };
 
   const onSavePress = () => {
     const scope = ['ProductDetail', 'onSavePress'];
     const product = {
-      pid: -1,
+      pid: productId + 1000 + 1000,
       name: productNameState,
       description: productDescriptionState,
       price: productPriceState,
       images: productImagesState,
     };
     logOutput(scope, productId);
-    if (productId === -1) {
+    if (productId < 0) {
       createProduct(formId, product).then(res => {
         logOutput(scope, JSON.stringify(res));
       });
@@ -95,8 +113,10 @@ function ProductDetail() {
         logOutput(scope, JSON.stringify(res));
       });
     }
+    console.log('Product ID: ' + productId + '; PID:' + product.pid);
     dispatch(
       updateActiveProduct({
+        productId: product.pid,
         productName: productNameState,
         productDescription: productDescriptionState,
         productPrice: productPriceState,

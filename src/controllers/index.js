@@ -13,4 +13,5 @@ export {
   sendCreateProductRequest,
   sendGetProductsRequest,
   sendUpdateProductRequest,
+  sendUploadImageRequest,
 } from './postLogin/productController';

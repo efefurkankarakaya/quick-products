@@ -90,7 +90,7 @@ function FormDetail({navigation}) {
   const onCreateProductPress = () => {
     const scopes = ['FormDetail', 'onCreateProductPress'];
     const activeProductData = {
-      productId: -1,
+      productId: products.length - 1000,
       productName: '',
       productDescription: '',
       productPrice: 0,

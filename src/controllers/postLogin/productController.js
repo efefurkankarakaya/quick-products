@@ -160,7 +160,7 @@ async function sendUpdateProductRequest(appKey, formId, product) {
 
   try {
     const {data} = await axios.post(endpoint, productsData, config);
-    logOutput(scopes, data);
+    logOutput(scopes, JSON.stringify(data));
     const {content, responseCode} = data;
     if (responseCode !== 200) {
       const message = 'Network error: ' + responseCode;
@@ -178,32 +178,44 @@ async function sendDeleteProductRequest(appKey, formId) {
   // update product -> remove item from array
 }
 
-async function sendImageUploadRequest(appKey, formId, productId, imageURI) {
+async function sendUploadImageRequest(appKey, formId, productId, image) {
   const scopes = ['productController', 'sendImageUploadRequest'];
-  const endpoint = `https://m-baydogan.jotform.dev/intern-api/image/${appKey}/{formId}`;
+  const endpoint = `https://m-baydogan.jotform.dev/intern-api/image/${appKey}/${formId}`;
 
+  // https://heartbeat.fritz.ai/how-to-upload-images-in-a-react-native-app-4cca03ded855
+  // https://www.reactnativeschool.com/how-to-upload-images-from-react-native
+
+  const {assets} = image;
+  const {uri, fileName, type} = assets[0];
   const formData = new FormData();
-  formData.append('productID', producId);
-  formData.append('image', imageURI);
+  formData.append('image', {
+    name: fileName,
+    type: type,
+    uri: Platform.OS === 'ios' ? uri.replace('file://', '') : uri,
+  });
+  formData.append('productID', productId);
 
   const config = {
     headers: {
-      ...formData.getHeaders(),
+      'Content-Type': 'multipart/form-data',
     },
   };
-  var form = new FormData();
-  files.forEach(file => {
-    form.append(file.name, file);
-  });
-  form.append('foo', 'bar');
-  axios.post('/api/art', form);
 
-  const {data} = await axios.post(endpoint, data, config);
+  logOutput(scopes, productId);
+  try {
+    const {data} = await axios.post(endpoint, formData, config);
+    logOutput(scopes, JSON.stringify(data));
+  } catch (err) {
+    logError(scopes, JSON.stringify(err.response));
+    logError(scopes, err.message);
+    logError(scopes, err.responseCode);
+  }
 }
 
 export {
   sendCreateProductRequest,
   sendDeleteProductRequest,
+  sendUploadImageRequest,
   sendGetProductsRequest,
   sendUpdateProductRequest,
 };
