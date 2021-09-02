@@ -26,7 +26,7 @@ import {
 import {parseStringToArray} from '../../utils/arrayHelpers';
 
 import styles from './FormDetail.style';
-import {Something, AddButton, TrashBox} from '../../assets';
+import {Something, AddButton, TrashBox, csv} from '../../assets';
 
 // Load products
 async function loadProducts(formId) {
@@ -156,7 +156,7 @@ function FormDetail({navigation}) {
       <View style={styles.buttonContainer}>
         <CustomRoundedButton icon={TrashBox} onPress={onDeleteProductPress} />
         <View style={{flexDirection:'row'}}>
-        <CustomRoundedButton dynamicStyle={{marginRight:10,}} icon={AddButton} onPress={onCreateProductPress} />
+        <CustomRoundedButton dynamicStyle={{marginRight:10,}} icon={csv} onPress={onCreateProductPress} />
         <CustomRoundedButton icon={AddButton} onPress={onCreateProductPress} />
         </View>
       </View>

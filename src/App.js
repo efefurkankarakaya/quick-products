@@ -24,7 +24,7 @@ import styles from './App.style';
 
 const Stack = createNativeStackNavigator();
 
-const PLSSHeaderOptions = {
+ const PLSSHeaderOptions = {
   headerTitleAlign: 'center',
   title: 'Quick Products',
 };

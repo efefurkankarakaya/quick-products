@@ -5,7 +5,7 @@ export default StyleSheet.create({
     
   },
   label: {
-    
+    color:'#0A1551',
   },
   textInput: {
     paddingLeft: 12,
