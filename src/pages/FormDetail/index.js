@@ -42,13 +42,6 @@ async function deleteForm(formId) {
 }
 
 function FormDetail({navigation}) {
-<<<<<<< HEAD
-  console.log('RENDER FORM DETAIL');
-  // WHY IS THAT CALLED TWICE????????????????????????
-  // WHY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // TODO: FIND WHY?!?!?!?!?!????????!!!!!!!
-=======
->>>>>>> master
   const dispatch = useDispatch();
 
   // Get formId for load products.

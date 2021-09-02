@@ -26,6 +26,8 @@ const PLSSHeaderOptions = {
   title: 'Quick Products',
 };
 
+// removeItem('user');
+
 const PreLoginStackScreens = () => {
   return (
     <Stack.Navigator initialRouteName="Login">
@@ -66,6 +68,13 @@ const ProductDetailsHeaderOptions = {
     color: '#fff',
   },
 };
+const FormDetailsHeaderOption = {
+  headerStyle: {backgroundColor: '#0A1551'},
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    color: '#fff',
+  },
+};
 
 const QuickFormsStackScreens = () => {
   return (
@@ -75,7 +84,11 @@ const QuickFormsStackScreens = () => {
         component={Dashboard}
         options={QFSSHeaderOptions}
       />
-      <Stack.Screen name="Form Detail" component={FormDetail} />
+      <Stack.Screen 
+      name="Form Detail" 
+      component={FormDetail} 
+      options={FormDetailsHeaderOption} 
+      />
       <Stack.Screen
         name="Product Detail"
         component={ProductDetail}

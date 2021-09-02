@@ -109,7 +109,7 @@ function Dashboard({navigation}) {
         <Dialog.Container visible={isVisible}>
           <Dialog.Title>Form Creation</Dialog.Title>
           <Dialog.Description>
-            Give your form a unique title.
+            Give your form a title.
           </Dialog.Description>
           <Dialog.Button label="Cancel" onPress={handleCancel} />
           <Dialog.Input

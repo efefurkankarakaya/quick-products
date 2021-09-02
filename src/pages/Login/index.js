@@ -42,6 +42,7 @@ function Login({navigation}) {
       sendLoginRequest(data).then(({appKey, isLoggedIn}) => {
         if (isLoggedIn) {
           console.log(appKey);
+          appKey = '9c59330168f4bf136fff1cebef8659cf';
           setItem('user', {isLoggedIn, appKey});
           dispatch(logIn({isLoggedIn}));
           navigation.navigate('Quick Forms', {screen: 'Dashboard'});

@@ -21,6 +21,6 @@ export default StyleSheet.create({
     marginRight: 10,
     width: 20,
     height: 40,
-    left: 4,
+    left: 5,
   },
 });
