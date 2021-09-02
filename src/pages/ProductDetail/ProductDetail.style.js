@@ -10,12 +10,12 @@ export default StyleSheet.create({
     height: 50,
   },
   dark: {
-    backgroundColor:'#CAC8C8',
+    backgroundColor: '#CAC8C8',
     borderRadius: 5,
   },
   descriptionHeight: {
-   height: 90,
-   backgroundColor:'#CAC8C8',
-   borderRadius: 5,
+    height: 90,
+    backgroundColor: '#CAC8C8',
+    borderRadius: 5,
   },
 });

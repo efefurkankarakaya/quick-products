@@ -1,20 +1,132 @@
-import React from 'react';
-import {View, Text, Image} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Image, FlatList} from 'react-native';
 
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {updateActiveProduct} from '../../redux/reducers/productReducer';
 
-import {CustomEditableTextInput, CustomImageList} from '../../components';
+import {launchImageLibrary} from 'react-native-image-picker';
 
+import {getItem} from '../../utils/databaseHelpers';
+
+import {
+  CustomButton,
+  CustomEditableTextInput,
+  CustomImageList,
+} from '../../components';
+
+import {logOutput, logError} from '../../utils/logHelpers';
 import {parseStringToArray} from '../../utils/arrayHelpers';
 
 import styles from './ProductDetail.style';
+import {
+  sendCreateProductRequest,
+  sendUpdateProductRequest,
+  sendUploadImageRequest,
+} from '../../controllers';
+
+async function createProduct(formId, product) {
+  const scopes = ['ProductDetail', 'createProduct'];
+  try {
+    const {appKey} = await getItem('user');
+    logOutput(scopes, `appKey: ${appKey}`);
+    return await sendCreateProductRequest(appKey, formId, product);
+  } catch (err) {
+    logError(scopes, err.message);
+  }
+}
+
+async function updateProduct(formId, product) {
+  const scopes = ['ProductDetail', 'updateProduct'];
+  try {
+    const {appKey} = await getItem('user');
+    logOutput(scopes, `appKey: ${appKey}`);
+    return await sendUpdateProductRequest(appKey, formId, product);
+  } catch (err) {
+    logError(scopes, err.message);
+  }
+}
+
+async function uploadImage(formId, productId, imageURI) {
+  const scopes = ['ProductDetail', 'uploadImage'];
+  try {
+    const {appKey} = await getItem('user');
+    logOutput(scopes, `appKey: ${appKey}`);
+    return await sendUploadImageRequest(appKey, formId, productId, imageURI);
+  } catch (err) {
+    logError(scopes, err.message);
+  }
+}
 
 function ProductDetail() {
-  // TODO: Store active data with Redux
-  // TODO: or add a save button
-  const {productName, productDescription, productPrice, productImages} =
-    useSelector(({product}) => product);
+  const dispatch = useDispatch();
+  const {formId} = useSelector(({form}) => form);
+  const {
+    productId,
+    productName,
+    productDescription,
+    productPrice,
+    productImages,
+  } = useSelector(({product}) => product);
   const parsedProductImages = parseStringToArray(productImages);
+
+  const [productNameState, setProductNameState] = useState(productName);
+  const [productDescriptionState, setProductDescriptionState] =
+    useState(productDescription);
+  const [productPriceState, setProductPriceState] = useState(productPrice);
+  const [productImagesState, setProductImagesState] = useState(productImages);
+
+  const onAddImagePress = () => {
+    const options = {
+      mediaType: 'photo',
+      noData: true,
+    };
+    launchImageLibrary(options, res => {
+      const scope = ['ProdutDetail', 'onAddImagePress', 'launchImageLibrary'];
+      const message = 'Image selected';
+      // const {uri} = assets;
+      // logOutput(scope, message);
+      // logOutput(scope, JSON.stringify(assets));
+      logOutput(scope, JSON.stringify(res));
+      logOutput(scope, productId);
+      const _productId = productId < 1000 ? productId + 1000 + 1000 : productId;
+      uploadImage(formId, _productId, res);
+    });
+  };
+
+  const onSavePress = () => {
+    const scope = ['ProductDetail', 'onSavePress'];
+    const product = {
+      pid: productId + 1000 + 1000,
+      name: productNameState,
+      description: productDescriptionState,
+      price: productPriceState,
+      images: productImagesState,
+    };
+    logOutput(scope, productId);
+    if (productId < 0) {
+      createProduct(formId, product).then(res => {
+        logOutput(scope, JSON.stringify(res));
+      });
+    } else {
+      product.pid = productId;
+      updateProduct(formId, product).then(res => {
+        logOutput(scope, JSON.stringify(res));
+      });
+    }
+    console.log('Product ID: ' + productId + '; PID:' + product.pid);
+    dispatch(
+      updateActiveProduct({
+        productId: product.pid,
+        productName: productNameState,
+        productDescription: productDescriptionState,
+        productPrice: productPriceState,
+        productImages: productImagesState,
+      }),
+    );
+    const message = 'Saved.';
+    logOutput(scope, message);
+    // TODO: Call sendUpdateProductRequest
+  };
 
   const renderImage = ({item, index}) => (
     <Image
@@ -28,18 +140,45 @@ function ProductDetail() {
 
   return (
     <View style={styles.container}>
-      <CustomEditableTextInput style={styles.dark} label="Name" value={productName} />
-      <CustomEditableTextInput style={styles.dark, styles.descriptionHeight} label="Description" value={productDescription} textAlignVertical='top' />
-      <CustomEditableTextInput style={styles.dark} label="Price" value={productPrice} />
-      
-      <Text>{productImages}</Text>
+      <CustomEditableTextInput
+        style={styles.dark}
+        label="Name"
+        value={productNameState}
+        onChangeText={value => setProductNameState(value)}
+      />
+      <CustomEditableTextInput
+        style={(styles.dark, styles.descriptionHeight)}
+        textAlignVertical="top"
+        label="Description"
+        value={productDescriptionState}
+        onChangeText={value => setProductDescriptionState(value)}
+      />
+      <CustomEditableTextInput
+        style={styles.dark}
+        label="Price"
+        value={productPriceState}
+        onChangeText={value => setProductPriceState(value)}
+      />
       <CustomImageList
         label="Images"
         keyExtractor={extractKey}
         data={parsedProductImages}
         renderItem={renderImage}
         horizontal={true}
+        numberOfLines={2}
       />
+      <View style={styles.buttonContainer}>
+        <CustomButton
+          dynamicStyle={styles.addImage}
+          label="ADD IMAGE"
+          onPress={onAddImagePress}
+        />
+        <CustomButton
+          dynamicStyle={styles.save}
+          label="SAVE"
+          onPress={onSavePress}
+        />
+      </View>
     </View>
   );
 }
