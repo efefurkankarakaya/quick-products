@@ -50,38 +50,6 @@ async function sendCreateProductRequest(appKey, formId, product) {
   const products = await sendGetProductsRequest(appKey, formId);
   const {length} = products;
   product.pid = 1000 + length;
-  // const product = {
-  //   cid: '',
-  //   connectedCategories: '[]',
-  //   connectedProducts: '[]',
-  //   corder: '',
-  //   customPrice: '',
-  //   customPriceSource: '0',
-  //   description: '2112421421213',
-  //   fitImageToCanvas: 'Yes',
-  //   hasExpandedOption: '',
-  //   hasQuantity: '',
-  //   hasSpecialPricing: '',
-  //   icon: '',
-  //   images:
-  //     '["https://www.jotform.com/uploads/baydoganmirac/form_files/test1.png","https://www.jotform.com/uploads/baydoganmirac/form_files/Kapak.jpg"]',
-  //   isLowStockAlertEnabled: 'No',
-  //   isStockControlEnabled: 'No',
-  //   lowStockValue: '',
-  //   name: 'YENİ ÜRÜN',
-  //   options: '[]',
-  //   period: 'Monthly',
-  //   pid: '1001',
-  //   price: '123',
-  //   recurringtimes: 'No Limit',
-  //   required: '',
-  //   selected: '',
-  //   setupfee: '',
-  //   showSubtotal: '0',
-  //   stockQuantityAmount: '',
-  //   trial: '',
-  // };
-  console.log(product);
   products.push(product);
   const productsData = convertJSONToQueryString({
     products: JSON.stringify(products),
@@ -114,37 +82,6 @@ async function sendUpdateProductRequest(appKey, formId, product) {
 
   // Don't forget to parse Image Array
   const products = await sendGetProductsRequest(appKey, formId);
-  // const product = {
-  //   cid: '',
-  //   connectedCategories: '[]',
-  //   connectedProducts: '[]',
-  //   corder: '',
-  //   customPrice: '',
-  //   customPriceSource: '0',
-  //   description: '2112421421213',
-  //   fitImageToCanvas: 'Yes',
-  //   hasExpandedOption: '',
-  //   hasQuantity: '',
-  //   hasSpecialPricing: '',
-  //   icon: '',
-  //   images:
-  //     '["https://www.jotform.com/uploads/baydoganmirac/form_files/test1.png","https://www.jotform.com/uploads/baydoganmirac/form_files/Kapak.jpg"]',
-  //   isLowStockAlertEnabled: 'No',
-  //   isStockControlEnabled: 'No',
-  //   lowStockValue: '',
-  //   name: 'YENİ ÜRÜN',
-  //   options: '[]',
-  //   period: 'Monthly',
-  //   pid: '1001',
-  //   price: '123',
-  //   recurringtimes: 'No Limit',
-  //   required: '',
-  //   selected: '',
-  //   setupfee: '',
-  //   showSubtotal: '0',
-  //   stockQuantityAmount: '',
-  //   trial: '',
-  // };
   const index = product.pid - 1000;
   products[index] = product;
   // TODO: At that night that you added first, they might cause some problems because their id don't start from 1000.
@@ -212,10 +149,35 @@ async function sendUploadImageRequest(appKey, formId, productId, image) {
   }
 }
 
+async function sendGetImagesRequest(appKey, formId, productId) {
+  const scopes = ['productController', 'sendGetImagesRequest'];
+  const endpoint = `https://m-baydogan.jotform.dev/intern-api/product/images/${appKey}/${formId}/${productId}`;
+
+  const config = {
+    headers: {
+      Accept: 'application/json',
+    },
+  };
+  logOutput(scopes, productId);
+  try {
+    const {data} = await axios.get(endpoint, config);
+    const {content, responseCode} = data;
+    if (responseCode !== 200) {
+      const message = 'Network error: ' + responseCode;
+      logError(scopes, message);
+      return [];
+    }
+    return content;
+  } catch (err) {
+    logError(scopes, err.message);
+  }
+}
+
 export {
   sendCreateProductRequest,
   sendDeleteProductRequest,
   sendUploadImageRequest,
+  sendGetImagesRequest,
   sendGetProductsRequest,
   sendUpdateProductRequest,
 };

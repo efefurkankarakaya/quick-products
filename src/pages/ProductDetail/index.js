@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Image, FlatList} from 'react-native';
 
 import {useSelector, useDispatch} from 'react-redux';
@@ -20,6 +20,7 @@ import {parseStringToArray} from '../../utils/arrayHelpers';
 import styles from './ProductDetail.style';
 import {
   sendCreateProductRequest,
+  sendGetImagesRequest,
   sendUpdateProductRequest,
   sendUploadImageRequest,
 } from '../../controllers';
@@ -57,6 +58,17 @@ async function uploadImage(formId, productId, imageURI) {
   }
 }
 
+async function loadImages(formId, productId) {
+  const scopes = ['ProductDetail', 'loadImages'];
+  try {
+    const {appKey} = await getItem('user');
+    logOutput(scopes, `appKey: ${appKey}`);
+    return await sendGetImagesRequest(appKey, formId, productId);
+  } catch (err) {
+    logError(scopes, err.message);
+  }
+}
+
 function ProductDetail() {
   const dispatch = useDispatch();
   const {formId} = useSelector(({form}) => form);
@@ -67,13 +79,28 @@ function ProductDetail() {
     productPrice,
     productImages,
   } = useSelector(({product}) => product);
-  const parsedProductImages = parseStringToArray(productImages);
+  // const parsedProductImages = parseStringToArray(productImages);
 
   const [productNameState, setProductNameState] = useState(productName);
   const [productDescriptionState, setProductDescriptionState] =
     useState(productDescription);
   const [productPriceState, setProductPriceState] = useState(productPrice);
   const [productImagesState, setProductImagesState] = useState(productImages);
+  // console.log(productImages, parsedProductImages, productImagesState);
+
+  const [isUploaded, setIsUploaded] = useState(false);
+  useEffect(() => {
+    // const isProductDoesNotExist = productId < 0 ? true : false;
+    // const _productId = isProductDoesNotExist
+    //   ? productId + 1000 + 1000
+    //   : productId;
+    loadImages(formId, productId).then(images => {
+      console.log('LOADED');
+      console.log('Images: ' + images);
+      setProductImagesState(images);
+    });
+    setIsUploaded(false);
+  }, [isUploaded]);
 
   const onAddImagePress = () => {
     const options = {
@@ -82,37 +109,45 @@ function ProductDetail() {
     };
     launchImageLibrary(options, res => {
       const scope = ['ProdutDetail', 'onAddImagePress', 'launchImageLibrary'];
+      if (res.didCancel) {
+        logOutput(scope, 'Image not selected.');
+        return;
+      }
       const message = 'Image selected';
       // const {uri} = assets;
       // logOutput(scope, message);
       // logOutput(scope, JSON.stringify(assets));
       logOutput(scope, JSON.stringify(res));
       logOutput(scope, productId);
-      const _productId = productId < 1000 ? productId + 1000 + 1000 : productId;
-      uploadImage(formId, _productId, res);
+      // const _productId = productId < 1000 ? productId + 1000 + 1000 : productId;
+      uploadImage(formId, productId, res)
+        .then(() => setIsUploaded(true))
+        .catch(() => setIsUploaded(false));
     });
   };
 
   const onSavePress = () => {
     const scope = ['ProductDetail', 'onSavePress'];
     const product = {
-      pid: productId + 1000 + 1000,
+      pid: productId,
       name: productNameState,
       description: productDescriptionState,
       price: productPriceState,
-      images: productImagesState,
+      images: JSON.stringify(productImagesState),
     };
+    console.log('PRODUCT IMAGES:' + product.images);
+    console.log('PRODUCT ID: ' + product.pid);
     logOutput(scope, productId);
-    if (productId < 0) {
-      createProduct(formId, product).then(res => {
-        logOutput(scope, JSON.stringify(res));
-      });
-    } else {
-      product.pid = productId;
-      updateProduct(formId, product).then(res => {
-        logOutput(scope, JSON.stringify(res));
-      });
-    }
+    // if (productId < 0) {
+    //   createProduct(formId, product).then(res => {
+    //     logOutput(scope, JSON.stringify(res));
+    //   });
+    // } else {
+    //   product.pid = productId;
+    updateProduct(formId, product).then(res => {
+      logOutput(scope, JSON.stringify(res));
+    });
+    // }
     console.log('Product ID: ' + productId + '; PID:' + product.pid);
     dispatch(
       updateActiveProduct({
@@ -125,7 +160,6 @@ function ProductDetail() {
     );
     const message = 'Saved.';
     logOutput(scope, message);
-    // TODO: Call sendUpdateProductRequest
   };
 
   const renderImage = ({item, index}) => (
@@ -159,7 +193,7 @@ function ProductDetail() {
           label="Price"
           value={productPriceState}
           onChangeText={value => setProductPriceState(value)}
-          keyboardType='numeric'
+          keyboardType="numeric"
         />
         <CustomImageList
           label="Images"
