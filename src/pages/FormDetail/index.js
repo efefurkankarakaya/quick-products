@@ -155,8 +155,12 @@ function FormDetail({navigation}) {
       />
       <View style={styles.buttonContainer}>
         <CustomRoundedButton icon={TrashBox} onPress={onDeleteProductPress} />
+        <View style={{flexDirection:'row'}}>
+        <CustomRoundedButton dynamicStyle={{marginRight:10,}} icon={AddButton} onPress={onCreateProductPress} />
         <CustomRoundedButton icon={AddButton} onPress={onCreateProductPress} />
+        </View>
       </View>
+    
     </View>
   );
 }

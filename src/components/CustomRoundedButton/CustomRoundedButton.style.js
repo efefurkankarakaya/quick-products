@@ -7,7 +7,8 @@ export default StyleSheet.create({
     
   },
   icon: {
-    top:5,
+    right: 5,
+    bottom:5,
     width: 50,
     height: 50,
     borderRadius: 0,

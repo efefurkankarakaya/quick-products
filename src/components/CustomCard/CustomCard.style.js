@@ -7,9 +7,15 @@ export default StyleSheet.create({
     backgroundColor: 'lightblue',
   },
   image: {
+    left:6,
     width: 150,
     height: 150,
   },
-  title: {},
-  description: {},
+  title: {
+    left:6,
+  },
+  description: {
+    left:6,
+    color:'gray',
+  },
 });

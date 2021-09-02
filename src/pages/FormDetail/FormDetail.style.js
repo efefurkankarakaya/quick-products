@@ -12,7 +12,7 @@ export default StyleSheet.create({
     borderWidth: 2,
   },
   layout: {
-    right: 5,
+    right: 8,
     
   },
   topContainer: {  
@@ -32,9 +32,9 @@ export default StyleSheet.create({
     paddingBottom:60,
   },
   flatListWrapper: {
-    backgroundColor: 'white',
+    
     marginBottom: 10,
-    justifyContent: 'space-between',
+     
   },
   productCard: {
     borderWidth: 1,
@@ -53,6 +53,5 @@ export default StyleSheet.create({
     position: 'absolute',
     display:'flex',
     height: 55,
-    
   },
 });

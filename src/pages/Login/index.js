@@ -11,7 +11,7 @@ import {sendLoginRequest} from '../../controllers/';
 
 import {CustomTextInput, CustomButton, CustomText} from '../../components';
 import styles from './Login.styles.js';
-import Logo from '../../assets/logo.png';
+import Logo from '../../assets/Logo1.png';
 import {API_KEY} from '../../../.env.js';
 
 // Validations
@@ -71,6 +71,7 @@ function Login({navigation}) {
           onBlur={handleBlur('username')}
           error={errors.username}
           touched={touched.username}
+          textAlign='left' 
         />
       </View>
       <View style={styles.wrapper}>
@@ -89,6 +90,8 @@ function Login({navigation}) {
           error={errors.password}
           touched={touched.password}
           ref={passwordInput}
+          textAlign='left'
+          
         />
       </View>
       <View style={styles.singInButton}>

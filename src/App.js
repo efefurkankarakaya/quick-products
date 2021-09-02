@@ -29,7 +29,7 @@ const PLSSHeaderOptions = {
   title: 'Quick Products',
 };
 
-// removeItem('user');
+//removeItem('user');
 
 const PreLoginStackScreens = () => {
   return (
@@ -65,7 +65,7 @@ const QFSSHeaderOptions = {
 };
 
 const ProductDetailsHeaderOptions = {
-  headerStyle: {backgroundColor: '#303339'},
+  headerStyle: {backgroundColor: '#0A1551'},
   headerTintColor: '#fff',
   headerTitleStyle: {
     color: '#fff',
@@ -115,7 +115,7 @@ async function getIsAnyUserLoggedInOnce() {
   }
 }
 
-// removeItem('user');
+ //removeItem('user');
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
