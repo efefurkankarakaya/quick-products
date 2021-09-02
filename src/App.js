@@ -87,10 +87,10 @@ const QuickFormsStackScreens = () => {
         component={Dashboard}
         options={QFSSHeaderOptions}
       />
-      <Stack.Screen 
-      name="Form Detail" 
-      component={FormDetail} 
-      options={FormDetailsHeaderOption} 
+      <Stack.Screen
+        name="Form Detail"
+        component={FormDetail}
+        options={FormDetailsHeaderOption}
       />
       <Stack.Screen
         name="Product Detail"
@@ -115,7 +115,7 @@ async function getIsAnyUserLoggedInOnce() {
   }
 }
 
- //removeItem('user');
+// removeItem('user');
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
