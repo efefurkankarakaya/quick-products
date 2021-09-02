@@ -1,6 +1,5 @@
 import axios from 'axios';
 import FormData from 'form-data';
-// import imageToBase64 from 'image-to-base64';
 import {parseStringToArray} from '../../utils/arrayHelpers';
 import {convertJSONToQueryString} from '../../utils/objectHelpers';
 import {logError, logOutput} from '../../utils/logHelpers';
@@ -173,6 +172,33 @@ async function sendGetImagesRequest(appKey, formId, productId) {
   }
 }
 
+async function sendUploadCSVRequest(appKey, formId, csv) {
+  const scopes = ['productController', 'sendUploadCSVRequest'];
+  const endpoint = `https://m-baydogan.jotform.dev/intern-api/importproductwithcsv/${appKey}/${formId}`;
+
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+
+  const formData = new FormData();
+  formData.append('csvfile', {
+    name: 'csv',
+    type: 'text/csv',
+    uri: Platform.OS === 'ios' ? csv.replace('content://', '') : csv,
+  });
+
+  logOutput(scopes, csv);
+  try {
+    const {data} = await axios.post(endpoint, formData, config);
+    logOutput(scopes, JSON.stringify(data));
+  } catch (err) {
+    logError(scopes, err.message);
+    console.error(err.response);
+  }
+}
+
 export {
   sendCreateProductRequest,
   sendDeleteProductRequest,
@@ -180,4 +206,5 @@ export {
   sendGetImagesRequest,
   sendGetProductsRequest,
   sendUpdateProductRequest,
+  sendUploadCSVRequest,
 };

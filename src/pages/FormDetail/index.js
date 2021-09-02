@@ -11,9 +11,15 @@ import {
   sendCreateProductRequest,
   sendDeleteFormRequest,
   sendGetProductsRequest,
+  sendUploadCSVRequest,
 } from '../../controllers';
 
+import DocumentPicker from 'react-native-document-picker';
+import {CSVReader} from 'react-papaparse';
+import {readRemoteFile} from 'react-native-csv';
+
 import {logError, logOutput} from '../../utils/logHelpers';
+import {parseStringToArray} from '../../utils/arrayHelpers';
 
 import {
   CustomCard,
@@ -22,8 +28,6 @@ import {
   CustomProduct,
   CustomRoundedButton,
 } from '../../components';
-
-import {parseStringToArray} from '../../utils/arrayHelpers';
 
 import styles from './FormDetail.style';
 import {Something, AddButton, TrashBox, csv} from '../../assets';
@@ -46,6 +50,31 @@ async function deleteForm(formId) {
     const {appKey} = await getItem('user');
     logOutput(scopes, `appKey: ${appKey}`);
     return await sendDeleteFormRequest(appKey, formId);
+  } catch (err) {
+    logError(scopes, err.message);
+  }
+}
+
+async function uploadCSV(formId) {
+  const scopes = ['FormDetail', 'uploadCSV'];
+  try {
+    const {appKey} = await getItem('user');
+    logOutput(scopes, `appKey: ${appKey}`);
+    const res = await DocumentPicker.pick({
+      type: [DocumentPicker.types.allFiles],
+    });
+    // console.log(
+    //   res.uri,
+    //   res.type, // mime type
+    //   res.name,
+    //   res.size,
+    // );
+    console.log(res);
+    if (DocumentPicker.isCancel()) {
+      logError(scopes, 'Cancelled.');
+      return;
+    }
+    return await sendUploadCSVRequest(appKey, formId, res.uri);
   } catch (err) {
     logError(scopes, err.message);
   }
@@ -76,6 +105,16 @@ function FormDetail({navigation}) {
       setProducts(products);
     });
   }, [useIsFocused()]);
+
+  const onUploadCSVPress = () => {
+    const scopes = ['FormDetail', 'onUploadCSVPress'];
+    uploadCSV(formId)
+      .then(res => {
+        logOutput(scopes, 'uploadCSV success');
+        console.log(res);
+      })
+      .catch(err => logError(scopes, err));
+  };
 
   const onDeleteProductPress = () => {
     deleteForm(formId).then(status => {
@@ -155,12 +194,18 @@ function FormDetail({navigation}) {
       />
       <View style={styles.buttonContainer}>
         <CustomRoundedButton icon={TrashBox} onPress={onDeleteProductPress} />
-        <View style={{flexDirection:'row'}}>
-        <CustomRoundedButton dynamicStyle={{marginRight:10,}} icon={csv} onPress={onCreateProductPress} />
-        <CustomRoundedButton icon={AddButton} onPress={onCreateProductPress} />
+        <View style={{flexDirection: 'row'}}>
+          <CustomRoundedButton
+            dynamicStyle={{marginRight: 10}}
+            icon={AddButton}
+            onPress={onUploadCSVPress}
+          />
+          <CustomRoundedButton
+            icon={AddButton}
+            onPress={onCreateProductPress}
+          />
         </View>
       </View>
-    
     </View>
   );
 }
