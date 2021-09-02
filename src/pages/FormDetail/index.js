@@ -5,6 +5,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {updateActiveProduct} from '../../redux/reducers/productReducer';
 import {getItem} from '../../utils/databaseHelpers';
 
+import {useIsFocused} from '@react-navigation/native';
+
 import {
   sendCreateProductRequest,
   sendDeleteFormRequest,
@@ -73,7 +75,7 @@ function FormDetail({navigation}) {
     loadProducts(formId).then(products => {
       setProducts(products);
     });
-  }, []);
+  }, [useIsFocused()]);
 
   const onDeleteProductPress = () => {
     deleteForm(formId).then(status => {
@@ -90,7 +92,7 @@ function FormDetail({navigation}) {
   const onCreateProductPress = () => {
     const scopes = ['FormDetail', 'onCreateProductPress'];
     const activeProductData = {
-      productId: products.length - 1000,
+      productId: (products ? products.length : 0) - 1000,
       productName: '',
       productDescription: '',
       productPrice: 0,

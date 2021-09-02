@@ -7,6 +7,7 @@ import {
   convertObjectToStyleSheet,
   combineStyles,
 } from '../../utils/styleHelpers';
+import {Default} from '../../assets';
 
 function CustomCard({
   source,
@@ -31,7 +32,11 @@ function CustomCard({
     dynamicDescriptionStyle,
   );
 
-  const dynamicSource = typeof source === 'string' ? {uri: source} : source;
+  let dynamicSource = Default;
+  if (source) {
+    dynamicSource = typeof source === 'string' ? {uri: source} : source;
+  }
+
   console.log('Source: ' + source);
   console.log('Dynamic Source: ' + dynamicSource);
   return (
@@ -53,4 +58,8 @@ CustomCard.propTypes = {
   dynamicImageStyle: PropTypes.object,
   dynamicTitleStyle: PropTypes.object,
   dynamicDescriptionStyle: PropTypes.object,
+};
+
+CustomCard.defaultProps = {
+  source: Default,
 };
