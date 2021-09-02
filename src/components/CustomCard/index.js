@@ -37,8 +37,8 @@ function CustomCard({
     dynamicSource = typeof source === 'string' ? {uri: source} : source;
   }
 
-  console.log('Source: ' + source);
-  console.log('Dynamic Source: ' + dynamicSource);
+  // console.log('Source: ' + source);
+  // console.log('Dynamic Source: ' + dynamicSource);
   return (
     <TouchableOpacity style={combinedStyles} {...otherTouchableOpacityProps}>
       <Image style={combinedImageStyles} source={dynamicSource} />

@@ -11,6 +11,7 @@ export {
 // Product Controller
 export {
   sendCreateProductRequest,
+  sendGetImagesRequest,
   sendGetProductsRequest,
   sendUpdateProductRequest,
   sendUploadImageRequest,

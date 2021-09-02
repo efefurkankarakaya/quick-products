@@ -92,12 +92,13 @@ function FormDetail({navigation}) {
   const onCreateProductPress = () => {
     const scopes = ['FormDetail', 'onCreateProductPress'];
     const activeProductData = {
-      productId: (products ? products.length : 0) - 1000,
+      productId: Number(Array.isArray(products) ? products.length : 0) + 1000,
       productName: '',
       productDescription: '',
       productPrice: 0,
       productImages: '[]',
     };
+    console.log('ACTIVE PRODUCT DATA : ' + activeProductData.productId);
     dispatch(updateActiveProduct(activeProductData));
     navigation.navigate('Quick Forms', {screen: 'Product Detail'});
   };
@@ -119,7 +120,9 @@ function FormDetail({navigation}) {
 
   // FlatList Functions
   const renderProduct = ({item: product}) => {
-    const parsedProductImages = parseStringToArray(product.images);
+    const parsedProductImages = product.images
+      ? parseStringToArray(product.images)
+      : [];
     return (
       <CustomCard
         dynamicStyle={styles.productCard}
