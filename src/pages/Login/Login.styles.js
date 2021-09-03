@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 0,
@@ -15,7 +15,7 @@ export default StyleSheet.create({
     fontSize: 25,
     marginBottom: 15,
     paddingTop: 85,
-    bottom:55,
+    bottom: 55,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
@@ -50,7 +50,6 @@ export default StyleSheet.create({
   },
 
   forgotPassword: {
-    
     //
   },
 

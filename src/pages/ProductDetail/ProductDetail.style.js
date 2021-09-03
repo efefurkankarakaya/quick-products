@@ -29,4 +29,10 @@ export default StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
   },
+  buttonContainer: {
+    marginTop: 30,
+  },
+  marginForEveryOne: {
+    marginBottom: 10,
+  },
 });

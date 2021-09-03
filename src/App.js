@@ -24,16 +24,20 @@ import styles from './App.style';
 
 const Stack = createNativeStackNavigator();
 
- const PLSSHeaderOptions = {
+const PLSSHeaderOptions = {
   headerTitleAlign: 'center',
   title: 'Quick Products',
 };
 
-//removeItem('user');
+removeItem('user');
 
 const PreLoginStackScreens = () => {
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        headerShown: false,
+      }}>
       <Stack.Screen
         name="Login"
         component={Login}
@@ -115,7 +119,7 @@ async function getIsAnyUserLoggedInOnce() {
   }
 }
 
-// removeItem('user');
+removeItem('user');
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);

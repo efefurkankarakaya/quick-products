@@ -15,8 +15,6 @@ import {
 } from '../../controllers';
 
 import DocumentPicker from 'react-native-document-picker';
-import {CSVReader} from 'react-papaparse';
-import {readRemoteFile} from 'react-native-csv';
 
 import {logError, logOutput} from '../../utils/logHelpers';
 import {parseStringToArray} from '../../utils/arrayHelpers';
@@ -30,7 +28,7 @@ import {
 } from '../../components';
 
 import styles from './FormDetail.style';
-import {Something, AddButton, TrashBox, csv} from '../../assets';
+import {Something, AddButton, TrashBox, CSV} from '../../assets';
 
 // Load products
 async function loadProducts(formId) {
@@ -87,6 +85,7 @@ function FormDetail({navigation}) {
   // Get formTitle for set header title.
   const {formId, formTitle} = useSelector(({form}) => form);
   const [products, setProducts] = useState([]); // Products Array
+  const [isUploaded, setIsUploaded] = useState(false);
 
   logOutput(['FormDetail'], formId, formTitle);
   // Load products when component is mounted.
@@ -103,8 +102,9 @@ function FormDetail({navigation}) {
     // Set products when is loaded.
     loadProducts(formId).then(products => {
       setProducts(products);
+      setIsUploaded(false);
     });
-  }, [useIsFocused()]);
+  }, [useIsFocused(), isUploaded]);
 
   const onUploadCSVPress = () => {
     const scopes = ['FormDetail', 'onUploadCSVPress'];
@@ -112,6 +112,7 @@ function FormDetail({navigation}) {
       .then(res => {
         logOutput(scopes, 'uploadCSV success');
         console.log(res);
+        setIsUploaded(true);
       })
       .catch(err => logError(scopes, err));
   };
@@ -197,7 +198,7 @@ function FormDetail({navigation}) {
         <View style={{flexDirection: 'row'}}>
           <CustomRoundedButton
             dynamicStyle={{marginRight: 10}}
-            icon={AddButton}
+            icon={CSV}
             onPress={onUploadCSVPress}
           />
           <CustomRoundedButton

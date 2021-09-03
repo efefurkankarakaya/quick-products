@@ -3,14 +3,13 @@ import {StyleSheet} from 'react-native';
 // Custom Button
 export default StyleSheet.create({
   container: {
-    borderRadius: 0,
+    borderRadius: 5,
     height: 50,
     width: 350,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#0A1551',
     marginBottom: 30,
-    
   },
 
   label: {
