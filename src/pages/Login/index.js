@@ -54,11 +54,12 @@ function Login({navigation}) {
 
   // JSX
   return (
-    <View style={styles.logo}>
+    <View style={styles.container}>
       <Image source={Logo} style={styles.image} />
       <Text style={styles.header}>Quick Products</Text>
       <View style={styles.wrapper}>
         <CustomTextInput
+          dynamicTextInputStyle={{borderColor: 'lightgrey', borderWidth: 2}}
           color="#0A1551"
           icon="mail"
           placeholder="USERNAME"
@@ -71,12 +72,12 @@ function Login({navigation}) {
           onBlur={handleBlur('username')}
           error={errors.username}
           touched={touched.username}
-          textAlign='left'
-          
+          textAlign="left"
         />
       </View>
       <View style={styles.wrapper}>
         <CustomTextInput
+          dynamicTextInputStyle={{borderColor: 'lightgrey', borderWidth: 2}}
           color="#0A1551"
           icon="key"
           placeholder="PASSWORD"
@@ -91,13 +92,15 @@ function Login({navigation}) {
           error={errors.password}
           touched={touched.password}
           ref={passwordInput}
-          textAlign='left'
-          
-          
+          textAlign="left"
         />
       </View>
       <View style={styles.singInButton}>
-        <CustomButton dynamicStyle={{width:279,left:2}} label="SIGN IN" onPress={() => handleSubmit()} />
+        <CustomButton
+          dynamicStyle={{width: 279, left: 2}}
+          label="SIGN IN"
+          onPress={() => handleSubmit()}
+        />
       </View>
 
       <CustomText

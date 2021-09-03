@@ -133,7 +133,7 @@ function ProductDetail() {
       name: productNameState,
       description: productDescriptionState,
       price: productPriceState,
-      images: JSON.stringify(productImagesState),
+      images: productImagesState,
     };
     console.log('PRODUCT IMAGES:' + product.images);
     console.log('PRODUCT ID: ' + product.pid);
@@ -149,15 +149,7 @@ function ProductDetail() {
     });
     // }
     console.log('Product ID: ' + productId + '; PID:' + product.pid);
-    dispatch(
-      updateActiveProduct({
-        productId: product.pid,
-        productName: productNameState,
-        productDescription: productDescriptionState,
-        productPrice: productPriceState,
-        productImages: productImagesState,
-      }),
-    );
+    dispatch(updateActiveProduct(product));
     const message = 'Saved.';
     logOutput(scope, message);
   };
@@ -176,12 +168,14 @@ function ProductDetail() {
     <View style={styles.container}>
       <View style={styles.wrapper}>
         <CustomEditableTextInput
+          dynamicStyle={styles.marginForEveryOne}
           style={styles.dark}
           label="Name"
           value={productNameState}
           onChangeText={value => setProductNameState(value)}
         />
         <CustomEditableTextInput
+          dynamicStyle={styles.marginForEveryOne}
           style={(styles.dark, styles.descriptionHeight)}
           textAlignVertical="top"
           label="Description"
@@ -189,6 +183,7 @@ function ProductDetail() {
           onChangeText={value => setProductDescriptionState(value)}
         />
         <CustomEditableTextInput
+          dynamicStyle={styles.marginForEveryOne}
           style={styles.dark}
           label="Price"
           value={productPriceState}
@@ -214,11 +209,10 @@ function ProductDetail() {
             label="SAVE"
             onPress={onSavePress}
           />
-          <CustomButton
+          {/* <CustomButton
             dynamicStyle={{backgroundColor:'red'}}
             label="Delete"
-          />
-          
+          /> */}
         </View>
       </View>
     </View>

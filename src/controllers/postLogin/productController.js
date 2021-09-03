@@ -83,6 +83,7 @@ async function sendUpdateProductRequest(appKey, formId, product) {
   const products = await sendGetProductsRequest(appKey, formId);
   const index = product.pid - 1000;
   products[index] = product;
+  logOutput(scopes, product.pid);
   // TODO: At that night that you added first, they might cause some problems because their id don't start from 1000.
 
   // ERROR  [ERROR] [formController -> sendGetFormsRequest] API-Limit exceeded
