@@ -30,7 +30,6 @@ function CustomEditableTextInput({
     <View style={combinedStyles}>
       <Text style={combinedLabelStyles}>{label}</Text>
       <TextInput style={combinedTextInputStyles} {...otherTextInputProps} />
-      {/* TODO: Create last edited self style and data prop */}
     </View>
   );
 }

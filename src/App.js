@@ -105,7 +105,6 @@ const QuickFormsStackScreens = () => {
   );
 };
 
-// TODO: Fix null object error while no data is present in the database
 async function getIsAnyUserLoggedInOnce() {
   const scopes = ['App', 'getIsAnyUserLoggedInOnce'];
   try {

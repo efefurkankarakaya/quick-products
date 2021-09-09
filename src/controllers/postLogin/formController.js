@@ -2,7 +2,10 @@ import axios from 'axios';
 import {logError, logOutput} from '../../utils/logHelpers';
 import {convertJSONToQueryString} from '../../utils/objectHelpers';
 
-// TODO: Add JSdocs
+/**
+ * @param {string} appKey - User's App key or Developer API Key
+ * @returns {object} - Returns content of response.
+ */
 async function sendGetFormsRequest(appKey) {
   const scopes = ['formController', 'sendGetFormsRequest'];
   const limit = 100;
@@ -36,7 +39,11 @@ async function sendGetFormsRequest(appKey) {
   }
 }
 
-// TODO: Add JSdocs
+/**
+ * @param {string} appKey - User's App key or Developer API Key
+ * @param {string} formTitle - Form Title
+ * @returns {object} - Returns content of response.
+ */
 async function sendCreateFormRequest(appKey, formTitle) {
   const scopes = ['formController', 'sendCreateFormRequest'];
   const endpoint = `https://api.jotform.com/user/forms?apiKey=${appKey}`;
@@ -65,7 +72,11 @@ async function sendCreateFormRequest(appKey, formTitle) {
   }
 }
 
-// TODO: Add JSdocs
+/**
+ * @param {string} appKey - User's App key or Developer API Key
+ * @param {number} formId - Form ID
+ * @returns {object} - Returns content of response.
+ */
 async function sendDeleteFormRequest(appKey, formId) {
   const scopes = ['formController', 'sendDeleteFormRequest'];
   const endpoint = `https://api.jotform.com/form/${formId}?apiKey=${appKey}`;

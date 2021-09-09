@@ -50,7 +50,7 @@ async function sendLoginRequest(loginData) {
     }
     // If not error occurs within informations, then credentials are valid.
     loginStatus.isLoggedIn = true;
-    loginStatus.appKey = userInfo.appKey; // TODO: \?/ Should its existence be checked?
+    loginStatus.appKey = userInfo.appKey;
     return loginStatus;
   } catch (err) {
     logError(scopes, err.message);

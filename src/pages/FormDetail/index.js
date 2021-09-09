@@ -90,10 +90,6 @@ function FormDetail({navigation}) {
   logOutput(['FormDetail'], formId, formTitle);
   // Load products when component is mounted.
   useEffect(() => {
-    // TODO: Warning: Can't perform a React state update on an unmounted component.
-    // This is a no-op, but it indicates a memory leak in your application.
-    // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-
     // Set header title as shown form title.
     navigation.setOptions({
       title: formTitle,

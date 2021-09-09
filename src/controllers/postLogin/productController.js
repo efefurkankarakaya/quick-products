@@ -4,7 +4,11 @@ import {parseStringToArray} from '../../utils/arrayHelpers';
 import {convertJSONToQueryString} from '../../utils/objectHelpers';
 import {logError, logOutput} from '../../utils/logHelpers';
 
-// TODO: JSDocs
+/**
+ * @param {string} appKey - User's App key or Developer API Key
+ * @param {number} formId - Form ID
+ * @returns {object} - Returns content of response.
+ */
 async function sendGetProductsRequest(appKey, formId) {
   const scopes = ['productController', 'sendGetProductsRequest'];
   const endpoint = `https://m-baydogan.jotform.dev/intern-api/product/${appKey}/${formId}`;
@@ -34,7 +38,12 @@ async function sendGetProductsRequest(appKey, formId) {
   }
 }
 
-// TODO: JSdocs
+/**
+ * @param {string} appKey - User's App key or Developer API Key
+ * @param {number} formId - Form ID
+ * @param {number} productId - Product ID
+ * @returns {object} - Returns content of response.
+ */
 async function sendCreateProductRequest(appKey, formId, product) {
   const scopes = ['productController', 'sendCreateProductRequest'];
   const endpoint = `https://m-baydogan.jotform.dev/intern-api/product/${appKey}/${formId}`;
@@ -45,7 +54,6 @@ async function sendCreateProductRequest(appKey, formId, product) {
     },
   };
 
-  // TODO: Don't forget to parse Image Array
   const products = await sendGetProductsRequest(appKey, formId);
   const {length} = products;
   product.pid = 1000 + length;
@@ -69,6 +77,12 @@ async function sendCreateProductRequest(appKey, formId, product) {
   }
 }
 
+/**
+ * @param {string} appKey - User's App key or Developer API Key
+ * @param {number} formId - Form ID
+ * @param {object} product - Product data
+ * @returns {object} - Returns content of response.
+ */
 async function sendUpdateProductRequest(appKey, formId, product) {
   const scopes = ['productController', 'sendUpdateProductRequest'];
   const endpoint = `https://m-baydogan.jotform.dev/intern-api/product/${appKey}/${formId}`;
@@ -84,7 +98,6 @@ async function sendUpdateProductRequest(appKey, formId, product) {
   const index = product.pid - 1000;
   products[index] = product;
   logOutput(scopes, product.pid);
-  // TODO: At that night that you added first, they might cause some problems because their id don't start from 1000.
 
   // ERROR  [ERROR] [formController -> sendGetFormsRequest] API-Limit exceeded
   // ERROR  [ERROR] [formController -> sendGetFormsRequest] Request failed with status code 403
@@ -110,17 +123,26 @@ async function sendUpdateProductRequest(appKey, formId, product) {
   }
 }
 
+/**
+ * @param {string} appKey - User's App key or Developer API Key
+ * @param {number} formId - Form ID
+ * @returns {object} - Returns content of response.
+ */
 async function sendDeleteProductRequest(appKey, formId) {
   const scopes = ['productController', 'sendDeleteProductRequest'];
-  // update product -> remove item from array
+  // Update product -> Remove item from array
 }
 
+/**
+ * @param {string} appKey - User's App key or Developer API Key
+ * @param {number} formId - Form ID
+ * @param {number} productId - Product ID
+ * @param {object} image - Response from Image Picker
+ * @returns {object} - Returns content of response.
+ */
 async function sendUploadImageRequest(appKey, formId, productId, image) {
   const scopes = ['productController', 'sendImageUploadRequest'];
   const endpoint = `https://m-baydogan.jotform.dev/intern-api/image/${appKey}/${formId}`;
-
-  // https://heartbeat.fritz.ai/how-to-upload-images-in-a-react-native-app-4cca03ded855
-  // https://www.reactnativeschool.com/how-to-upload-images-from-react-native
 
   const {assets} = image;
   const {uri, fileName, type} = assets[0];
@@ -149,6 +171,12 @@ async function sendUploadImageRequest(appKey, formId, productId, image) {
   }
 }
 
+/**
+ * @param {string} appKey - User's App key or Developer API Key
+ * @param {number} formId - Form ID
+ * @param {number} productId - Product ID
+ * @returns {object} - Returns content of response.
+ */
 async function sendGetImagesRequest(appKey, formId, productId) {
   const scopes = ['productController', 'sendGetImagesRequest'];
   const endpoint = `https://m-baydogan.jotform.dev/intern-api/product/images/${appKey}/${formId}/${productId}`;
@@ -173,6 +201,12 @@ async function sendGetImagesRequest(appKey, formId, productId) {
   }
 }
 
+/**
+ * @param {string} appKey - User's App key or Developer API Key
+ * @param {number} formId - Form ID
+ * @param {object} csv - CSV File URI
+ * @returns {object} - Returns content of response.
+ */
 async function sendUploadCSVRequest(appKey, formId, csv) {
   const scopes = ['productController', 'sendUploadCSVRequest'];
   const endpoint = `https://m-baydogan.jotform.dev/intern-api/importproductwithcsv/${appKey}/${formId}`;

@@ -36,9 +36,6 @@ async function loadForms() {
 }
 
 function Dashboard({navigation}) {
-  // TODO: Warning: Can't perform a React state update on an unmounted component.
-  // This is a no-op, but it indicates a memory leak in your application.
-  // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
   const dispatch = useDispatch();
 
   const [forms, setForms] = useState([]); // Form Array
@@ -47,7 +44,6 @@ function Dashboard({navigation}) {
 
   // When the component is mounted, then load forms.
   useEffect(() => {
-    // TODO: Add swipe refresh
     loadForms().then(forms => setForms(forms));
   }, [forms]);
 
@@ -116,9 +112,7 @@ function Dashboard({navigation}) {
       <View>
         <Dialog.Container visible={isVisible}>
           <Dialog.Title>Form Creation</Dialog.Title>
-          <Dialog.Description>
-            Give your form a title.
-          </Dialog.Description>
+          <Dialog.Description>Give your form a title.</Dialog.Description>
           <Dialog.Button label="Cancel" onPress={handleCancel} />
           <Dialog.Input
             value={formTitleInputText}

@@ -46,11 +46,9 @@ function CustomItem({
       onPress={onPress}
       {...otherTouchableOpacityProps}>
       <Image style={combinedImageStyles} source={image} />
-      {/* TODO: \IDEA/ what if passed a component (eg: CustomImage) as a prop? */}
       <View styles={combinedTextContainerStyles}>
         <Text style={combinedTitleStyles}>{title}</Text>
         <Text style={combinedSubTextStyles}>{subText}</Text>
-        {/* TODO: \REMEMBER/ Text-ellipsis for content overflow safety */}
       </View>
     </TouchableOpacity>
   );
